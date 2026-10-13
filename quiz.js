@@ -276,7 +276,7 @@ function eventTitle(id) {
 function showQuizIntro() {
   quizCard.innerHTML = `
     <h2 class="quiz-title">Mini quiz de historia</h2>
-    <p class="quiz-lead">Responde ${QUIZ_LENGTH} preguntas elegidas al azar de un banco de ${quizBank.length}. Cada vez que lo repitas, saldrán preguntas distintas.</p>
+    <p class="quiz-lead">Responde ${QUIZ_LENGTH} preguntas.</p>
     <button type="button" class="quiz-btn" id="quizStart">Empezar el quiz</button>
   `;
   document.getElementById('quizStart').addEventListener('click', startQuiz);
