@@ -1,4 +1,3 @@
-
 const src = (title, url) => ({ title, url });
 
 const eventsData = [
@@ -474,9 +473,91 @@ const eventsData = [
       src("Brigadista de alfabetización: testimonio (Aquelarre, Univ. de Washington)", "https://journals.lib.washington.edu/index.php/aquelarre/article/view/13221/11588"),
       src("Gran Cruzada Nacional de Alfabetización (Revista Índice, CNU)", "https://revistaindice.cnu.edu.ni/index.php/indice/article/download/182/129/265")
     ]
+  },
+  {
+    id: 31,
+    date: "1990",
+    title: "Elecciones de 1990 y transición democrática",
+    category: "nicaragua",
+    details: "El 25 de febrero de 1990 Violeta Barrios de Chamorro, candidata de la Unión Nacional Opositora (UNO), una coalición de 14 partidos, ganó las elecciones con cerca del 55 % de los votos frente al 41 % de Daniel Ortega, quien buscaba la reelección. Las encuestas daban como favorito a Ortega. El 27 de marzo se firmó un protocolo de transición y el 25 de abril de 1990 el FSLN entregó el gobierno. Los contras completaron su desmovilización el 26 de junio de 1990.",
+    consequences: "Comenzó la transición de la guerra a la paz. Chamorro gobernó hasta 1997 y fue la primera mujer elegida presidenta en América. Humberto Ortega siguió al frente del Ejército hasta 1995, con atribuciones reducidas.",
+    protagonists: ["Violeta Barrios de Chamorro", "Daniel Ortega", "Humberto Ortega", "Unión Nacional Opositora (UNO)"],
+    sources: [
+      src("Violeta Barrios de Chamorro (CIDOB)", "https://www.cidob.org/lider-politico/violeta-barrios-chamorro"),
+      src("Nicaragua: capítulo sobre las elecciones de 1990 (Country Studies, en inglés)", "https://countrystudies.us/nicaragua/19.htm"),
+      src("Muere Violeta Chamorro, la primera presidenta elegida de América (BBC Mundo, vía El Mostrador)", "https://www.elmostrador.cl/noticias/2025/06/14/muere-violeta-chamorro-la-primera-presidenta-elegida-de-america-y-que-derroto-a-ortega-en-nicaragua/"),
+      src("Violeta Chamorro, el «ama de casa» que pacificó a Nicaragua (AFP, vía CRHoy)", "https://crhoy.com/mundo/violeta-chamorro-el-ama-de-casa-que-pacifico-a-nicaragua/")
+    ]
+  },
+  {
+    id: 32,
+    date: "1997–2003",
+    title: "Corrupción en la era de Arnoldo Alemán",
+    category: "nicaragua",
+    details: "Arnoldo Alemán gobernó de 1997 a 2002, tras vencer a Daniel Ortega en las elecciones de 1996. En 2000 firmó con Ortega un pacto político que se plasmó en reformas constitucionales. Su sucesor, Enrique Bolaños, lo acusó de corrupción, y en 2004 Transparencia Internacional lo incluyó entre los diez exgobernantes con mayores fondos presuntamente malversados: unos 100 millones de dólares. El 7 de diciembre de 2003 la jueza Juana Méndez lo condenó a 20 años de prisión por lavado de dinero, fraude, malversación de fondos públicos y otros delitos. Su defensa calificó la sentencia de absurda.",
+    consequences: "Alemán pasó algunos meses en la cárcel y cumplió casi toda la pena bajo arresto domiciliario. El 17 de enero de 2009 la Corte Suprema anuló la condena por 4 votos contra 2, con el argumento de que no había pruebas; medios internacionales interpretaron la decisión como parte de la disputa y los acuerdos políticos entre los liberales y el gobierno sandinista. En Panamá, la Fiscalía Anticorrupción lo acusó de lavar más de 58 millones de dólares del Tesoro nicaragüense, aunque las cifras varían según la fuente (58, 70 y 74 millones).",
+    protagonists: ["Arnoldo Alemán", "Enrique Bolaños", "Daniel Ortega", "Juana Méndez (jueza)"],
+    sources: [
+      src("Informe Global de la Corrupción 2004 (Transparencia Internacional)", "https://www.transparency.org/en/press/comunicado-de-prensa-lanzamiento-de-la-edicion-en-espanol"),
+      src("Sentencia en contra de Arnoldo Alemán Lacayo, 7 de diciembre de 2003 (Monitoreo Especial, vía Fundación Enrique Bolaños)", "https://sajurin.enriquebolanos.org/docs/ME_071203_1.pdf"),
+      src("Justicia de Nicaragua absuelve a Arnoldo Alemán (Reuters, vía La Nación)", "https://www.nacion.com/el-mundo/justicia-de-nicaragua-absuelve-a-arnoldo-aleman/VHZX6SLJDFHENJUWDWLUNBI6FE/story/"),
+      src("Nicaragua high court overturns corruption conviction of ex-president (JURIST, en inglés)", "https://www.jurist.org/news/2009/01/nicaragua-high-court-overturns/"),
+      src("Ordenan en Panamá arresto de ex presidente nicaragüense (Rebelión)", "https://rebelion.org/ordenan-en-panama-arresto-de-ex-presidente-nicaraguense/"),
+      src("Panamá pide que se notifique a Alemán (La Prensa, 2009)", "https://www.laprensani.com/2009/12/04/nacionales/9481-panama-pide-que-se-notifique-a-aleman"),
+      src("Arnoldo Aleman: Daniel Ortega's False Opponent (Confidencial, vía Havana Times, en inglés)", "https://confidencial.digital/english/arnoldo-aleman-daniel-ortegas-false-opponent/")
+    ]
+  },
+  {
+    id: 33,
+    date: "2007",
+    title: "Daniel Ortega regresa a la presidencia",
+    category: "fsln",
+    details: "Ortega había perdido las elecciones de 1996 y 2001. El 5 de noviembre de 2006 obtuvo alrededor del 38 % de los votos, frente a entre 28 y 29 % de Eduardo Montealegre. Evitó una segunda vuelta porque la ley exigía al menos 35 % de los votos y una ventaja de más de cinco puntos sobre el segundo lugar. Asumió la presidencia, por un período de cinco años, el 10 de enero de 2007, dieciséis años después de dejar el poder.",
+    consequences: "Comenzó el actual período de gobierno del FSLN. La Constitución prohibía la reelección consecutiva, pero en 2011 Ortega pudo postularse tras una sentencia que lo permitió. Después la Constitución se reformó varias veces, incluida una reforma que permite la reelección indefinida.",
+    protagonists: ["Daniel Ortega", "Eduardo Montealegre", "Frente Sandinista de Liberación Nacional (FSLN)"],
+    sources: [
+      src("Daniel Ortega (Biografías y Vidas)", "https://www.biografiasyvidas.com/biografia/o/ortega_daniel.htm"),
+      src("Nicaragua: The Election of Daniel Ortega and Issues in U.S. Relations (Servicio de Investigación del Congreso de EE. UU., en inglés)", "https://policyarchive.org/handle/10207/3237"),
+      src("Nicaragua's Ortega Wins Presidential Election (Voz de América, en inglés)", "https://www.globalsecurity.org/military/library/news/2006/11/mil-061108-voa04.htm"),
+      src("Ortega asume la presidencia de Nicaragua (Página/12)", "https://www.pagina12.com.ar/imprimir/diario/elmundo/4-78889-2007-01-10.html"),
+      src("Cómo Daniel Ortega pasó de ser un revolucionario de bajo perfil a ser el hombre fuerte del país (BBC Mundo, vía Prensa Libre)", "https://www.prensalibre.com/?p=10408569"),
+      src("Entra en vigor reforma constitucional en Nicaragua (EFE, vía Infobae)", "https://www.infobae.com/america/agencias/2025/02/19/entra-en-vigor-reforma-constitucional-que-da-poder-total-a-ortega-y-murillo-en-nicaragua/")
+    ]
+  },
+  {
+    id: 34,
+    date: "2018",
+    title: "Protestas de abril y crisis sociopolítica",
+    category: "nicaragua",
+    details: "El 16 de abril de 2018 el gobierno anunció cambios al Instituto Nicaragüense de Seguridad Social (INSS) que reducían las pensiones. El 18 de abril comenzaron las protestas, encabezadas al inicio por estudiantes y jubilados, que fueron reprimidas y se extendieron por el país. El 22 de abril el gobierno derogó la reforma, pero las protestas continuaron y pasaron a pedir la salida de Daniel Ortega y Rosario Murillo. La cifra de muertos es disputada: la CIDH verificó al menos 264 muertes y 1,800 heridos hasta el 11 de julio de 2018; a fines de ese año las autoridades hablaban de 198 muertos y grupos humanitarios de unos 320.",
+    consequences: "La CIDH, el grupo de expertos independientes (GIEI) y la ONU documentaron violaciones de derechos humanos, y el gobierno rechazó el informe de la CIDH. Se instaló una Mesa de Diálogo Nacional. En diciembre de 2018 el gobierno expulsó a las misiones de la CIDH y del GIEI, acusándolas de injerencia.",
+    protagonists: ["Estudiantes y jubilados", "Daniel Ortega", "Rosario Murillo", "Comisión Interamericana de Derechos Humanos (CIDH)"],
+    sources: [
+      src("Nicaragua: cronología de una crisis, agosto de 2018 (Directorio Legislativo)", "https://archivo.directoriolegislativo.org/wp-content/uploads/new/2018/09/NIC.-Cronolog%C3%ADa-de-la-crisis.-Agosto-2018.pdf"),
+      src("Ficha sobre paz y conflictos: Nicaragua (Institut Català Internacional per la Pau)", "https://www.icip.cat/en/?p=11352"),
+      src("CIDH verifica 264 muertes en Nicaragua (Voz de América)", "https://www.vozdeamerica.com/a/oea-analiza-situaci%C3%B3n-de-ddhh-en-nicaragua/4478130.html"),
+      src("Nicaragua CIDH (Acento)", "https://acento.com.do/e/Nicaragua-CIDH/"),
+      src("Expertos de la CIDH denuncian crímenes de lesa humanidad en Nicaragua (AFP, vía La Patilla)", "https://www.lapatilla.com/2018/12/21/expertos-de-la-cidh-denuncian-crimenes-de-lesa-humanidad-en-nicaragua/"),
+      src("Violaciones de derechos humanos y abusos en el contexto de las protestas en Nicaragua, 18 de abril–18 de agosto de 2018 (ONU, Derechos Humanos)", "https://webarchive.archive.unhcr.org/20221001112210if_/https://www.refworld.org.es/pdfid/5b9fe9e84.pdf")
+    ]
+  },
+  {
+    id: 35,
+    date: "2025",
+    title: "Reforma constitucional y copresidencia",
+    category: "fsln",
+    details: "A finales de enero de 2025 la Asamblea Nacional, de mayoría oficialista, aprobó en segunda legislatura una reforma constitucional, que entró en vigor el 19 de febrero de 2025. La reforma creó la figura de copresidente y copresidenta, cargos que ocupan Daniel Ortega y Rosario Murillo, amplió el período presidencial de cinco a seis años y estableció que la Presidencia coordina a los demás órganos del Estado, que dejan de llamarse poderes. El paquete fue presentado por Ortega y Murillo con el nombre de Ley de protección de los nicaragüenses ante sanciones y agresiones externas.",
+    consequences: "La reforma fue criticada por la ONU, la OEA, Estados Unidos, el Parlamento Europeo y sectores de oposición. En 2026 la Asamblea aprobó en primera votación otra reforma que ampliaría el mandato a siete años y excluiría de las elecciones a opositores considerados «traidores a la patria»; su ratificación está prevista para el 18 de enero de 2027. Como la reforma de 2025 amplió el período presidencial a seis años, las elecciones generales, antes previstas para noviembre de 2026, estarían ahora previstas para noviembre de 2027.",
+    protagonists: ["Daniel Ortega", "Rosario Murillo", "Asamblea Nacional"],
+    sources: [
+      src("Entra en vigor reforma constitucional en Nicaragua (EFE, vía Infobae)", "https://www.infobae.com/america/agencias/2025/02/19/entra-en-vigor-reforma-constitucional-que-da-poder-total-a-ortega-y-murillo-en-nicaragua/"),
+      src("El Parlamento de Nicaragua aprobó en 2025 la reforma que da poder total a Ortega y Murillo (Forbes Centroamérica)", "https://forbescentroamerica.com/2025/12/29/el-parlamento-de-nicaragua-aprobo-en-2025-la-reforma-que-da-poder-total-a-ortega-y-murillo"),
+      src("Nicaragua 2025: la dictadura matrimonial de Ortega y Murillo (Diario Constitucional)", "https://www.diarioconstitucional.cl/2025/02/11/nicaragua-2025-la-dictadura-matrimonial-de-ortega-y-murillo-por-rafael-rodriguez/"),
+      src("Nicaragua reforma su Constitución para blindar el poder de Ortega y Murillo (14ymedio)", "https://www.14ymedio.com/internacional/nicaragua-reforma-constitucion-blindar-ortega_1_1130444.html"),
+      src("Nueva reforma constitucional acerca a Murillo a la sucesión de Ortega (Forbes Centroamérica, septiembre de 2026)", "https://forbescentroamerica.com/2026/09/17/nueva-reforma-constitucional-acerca-a-murillo-a-la-sucesion-de-ortega-en-nicaragua")
+    ]
   }
 ];
-
 
 const PHOTO_SOURCES = {
   "William Walker": ["en:William Walker (filibuster)", "es:William Walker"],
@@ -503,17 +584,22 @@ const PHOTO_SOURCES = {
   "Silvio Mayorga": ["es:Silvio Mayorga", "en:Silvio Mayorga"],
   "Germán Pomares": ["es:Germán Pomares Ordóñez"],
   "Pedro Joaquín Chamorro Cardenal": ["es:Pedro Joaquín Chamorro Cardenal", "en:Pedro Joaquín Chamorro Cardenal"],
-  "Fernando Cardenal": ["es:Fernando Cardenal", "en:Fernando Cardenal"]
+  "Fernando Cardenal": ["es:Fernando Cardenal", "en:Fernando Cardenal"],
+  "Violeta Barrios de Chamorro": ["es:Violeta Barrios de Chamorro", "es:Violeta Chamorro", "en:Violeta Chamorro"],
+  "Daniel Ortega": ["es:Daniel Ortega", "en:Daniel Ortega"],
+  "Humberto Ortega": ["es:Humberto Ortega", "en:Humberto Ortega"],
+  "Eduardo Montealegre": ["es:Eduardo Montealegre"],
+  "Rosario Murillo": ["es:Rosario Murillo", "en:Rosario Murillo"],
+  "Arnoldo Alemán": ["es:Arnoldo Alemán", "en:Arnoldo Alemán"],
+  "Enrique Bolaños": ["es:Enrique Bolaños Geyer", "en:Enrique Bolaños"]
 };
 
 const photoCache = {};
 
-// Quita aclaraciones entre paréntesis: "Juan Rafael Mora (Costa Rica)" -> "Juan Rafael Mora"
 function cleanName(name) {
   return name.replace(/\s*\(.*?\)\s*/g, '').trim();
 }
 
-// Devuelve { src, page } o null si no hay foto
 function loadPhoto(name) {
   const candidates = PHOTO_SOURCES[name];
   if (!candidates) return Promise.resolve(null);
@@ -534,7 +620,6 @@ function loadPhoto(name) {
           return { src: data.thumbnail.source, page };
         }
       } catch (err) {
-        // Sin conexión o artículo inexistente: se prueba el siguiente candidato
       }
     }
     return null;
@@ -543,18 +628,15 @@ function loadPhoto(name) {
   return photoCache[name];
 }
 
-
 const timelineContainer = document.getElementById('timeline');
 const modalOverlay = document.getElementById('modalOverlay');
 const modalContent = document.getElementById('modalContent');
 const modalBody = document.getElementById('modalBody');
 const closeModalBtn = document.getElementById('closeModal');
 
-// Los eventos rojinegros son los de la lucha sandinista (Sandino y FSLN)
 function isRojinegro(event) {
   return event.category === 'sandino' || event.category === 'fsln';
 }
-
 
 function renderTimeline() {
   timelineContainer.innerHTML = '';
@@ -580,7 +662,6 @@ function renderTimeline() {
   updateProgress();
 }
 
-
 function setupReveal() {
   const items = document.querySelectorAll('.timeline-item');
 
@@ -601,7 +682,6 @@ function setupReveal() {
   items.forEach(el => observer.observe(el));
 }
 
-
 function updateProgress() {
   const rect = timelineContainer.getBoundingClientRect();
   const reached = window.innerHeight * 0.6 - rect.top;
@@ -611,7 +691,6 @@ function updateProgress() {
 
 window.addEventListener('scroll', updateProgress, { passive: true });
 window.addEventListener('resize', updateProgress);
-
 
 function openModal(id) {
   const event = eventsData.find(e => e.id === id);
@@ -635,6 +714,10 @@ function openModal(id) {
     .map(s => `<li><a href="${s.url}" target="_blank" rel="noopener noreferrer">${s.title}</a></li>`)
     .join('');
 
+  const contextPanel = event.context
+    ? `<section class="panel"><h4>Contexto histórico</h4><p>${event.context}</p></section>`
+    : '';
+
   const prevId = id > 1 ? id - 1 : null;
   const nextId = id < eventsData.length ? id + 1 : null;
 
@@ -648,10 +731,7 @@ function openModal(id) {
 
       <div class="modal-grid">
         <div class="modal-col">
-          <section class="panel">
-            <h4>Contexto histórico</h4>
-            <p>${event.context}</p>
-          </section>
+          ${contextPanel}
 
           <section class="panel">
             <h4>¿Cómo ocurrió?</h4>
@@ -687,11 +767,10 @@ function openModal(id) {
 
   modalContent.scrollTop = 0;
   modalOverlay.classList.add('active');
-  document.body.style.overflow = 'hidden'; 
+  document.body.style.overflow = 'hidden';
 
   attachPhotos(modalBody);
 }
-
 
 function attachPhotos(root) {
   const credit = root.querySelector('.photo-credit');
@@ -727,7 +806,6 @@ function closeModal() {
   document.body.style.overflow = 'auto';
 }
 
-// Event Listeners
 closeModalBtn.addEventListener('click', closeModal);
 
 document.addEventListener('keydown', (e) => {
@@ -735,6 +813,5 @@ document.addEventListener('keydown', (e) => {
     closeModal();
   }
 });
-
 
 document.addEventListener('DOMContentLoaded', renderTimeline);

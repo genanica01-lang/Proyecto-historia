@@ -1,4 +1,3 @@
-
 const quizBank = [
   {
     event: 1,
@@ -214,9 +213,43 @@ const quizBank = [
     options: ["12.96 %", "30 %", "50.35 %", "0 %"],
     answer: 0,
     explain: "Antes de la Cruzada era de 50.35 %. En septiembre de 1980 la UNESCO entregó a Nicaragua el premio Nadezhda K. Krupskaya."
+  },
+  {
+    event: 31,
+    q: "¿Qué porcentaje aproximado de los votos obtuvo Violeta Barrios de Chamorro en las elecciones del 25 de febrero de 1990?",
+    options: ["25 %", "41 %", "55 %", "70 %"],
+    answer: 2,
+    explain: "Chamorro, candidata de la UNO, obtuvo cerca del 55 %. Daniel Ortega obtuvo cerca del 41 %. El FSLN entregó el gobierno el 25 de abril de 1990."
+  },
+  {
+    event: 32,
+    q: "¿Cuántos años de prisión le impuso una jueza, en diciembre de 2003, al expresidente Arnoldo Alemán por lavado de dinero, fraude y malversación?",
+    options: ["5 años", "10 años", "20 años", "30 años"],
+    answer: 2,
+    explain: "La jueza Juana Méndez lo condenó el 7 de diciembre de 2003. Cumplió casi toda la pena bajo arresto domiciliario y la Corte Suprema anuló la condena el 17 de enero de 2009."
+  },
+  {
+    event: 33,
+    q: "¿Qué día asumió Daniel Ortega la presidencia tras ganar las elecciones de noviembre de 2006?",
+    options: ["25 de abril de 1990", "19 de julio de 1979", "10 de enero de 2007", "5 de noviembre de 2006"],
+    answer: 2,
+    explain: "Ortega obtuvo cerca del 38 % de los votos y evitó una segunda vuelta. Asumió el 10 de enero de 2007, dieciséis años después de dejar el poder."
+  },
+  {
+    event: 34,
+    q: "¿Qué cambio del gobierno originó las protestas que comenzaron el 18 de abril de 2018?",
+    options: ["Una reforma al Instituto Nicaragüense de Seguridad Social (INSS)", "Una reforma a la ley electoral", "Una reforma al código penal", "Una reforma a la educación superior"],
+    answer: 0,
+    explain: "Los cambios al INSS reducían las pensiones. El gobierno los derogó el 22 de abril, pero las protestas continuaron."
+  },
+  {
+    event: 35,
+    q: "¿Qué figura creó la reforma constitucional que entró en vigor en febrero de 2025?",
+    options: ["Primer ministro", "Copresidente y copresidenta", "Presidencia rotativa", "Gobierno parlamentario"],
+    answer: 1,
+    explain: "La reforma creó la copresidencia de Daniel Ortega y Rosario Murillo, amplió el período presidencial de cinco a seis años y estableció que la Presidencia coordina a los demás órganos del Estado."
   }
 ];
-
 
 const QUIZ_LENGTH = 5;
 
