@@ -276,7 +276,7 @@ function eventTitle(id) {
 function showQuizIntro() {
   quizCard.innerHTML = `
     <h2 class="quiz-title">Mini quiz de historia</h2>
-    <p class="quiz-lead">Responde ${QUIZ_LENGTH} preguntas.</p>
+    <p class="quiz-lead"> Responde ${QUIZ_LENGTH} preguntas de la historia de Nicaragua.</p>
     <button type="button" class="quiz-btn" id="quizStart">Empezar el quiz</button>
   `;
   document.getElementById('quizStart').addEventListener('click', startQuiz);
