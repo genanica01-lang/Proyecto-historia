@@ -29,10 +29,20 @@
     </div>
   </section>
 
+  <footer class="credits">Bandera de Nicaragua: Wikimedia Commons, autor C records (CC BY 3.0)</footer>
+
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-content" id="modalContent">
       <button class="close-btn" id="closeModal" aria-label="Cerrar">&times;</button>
       <div id="modalBody">
+      </div>
+      <button type="button" class="sources-btn" id="sourcesBtn" aria-expanded="false" aria-controls="sourcesPanel">Ver fuentes consultadas <span class="sources-count" id="sourcesCount"></span></button>
+      <div class="sources-panel" id="sourcesPanel" hidden>
+        <div class="sources-head">
+          <h4>Fuentes consultadas</h4>
+          <button type="button" class="sources-close" id="sourcesClose" aria-label="Cerrar fuentes">&times;</button>
+        </div>
+        <ul class="sources-list" id="sourcesList"></ul>
       </div>
     </div>
   </div>
