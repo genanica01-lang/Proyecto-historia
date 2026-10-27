@@ -2,52 +2,188 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Línea de Tiempo Nicaragua</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b2545">
+  <meta name="description" content="Línea de tiempo interactiva de la historia de Nicaragua: acontecimientos con imágenes, mapas y fuentes, quiz por niveles y comparación de épocas.">
+  <title>Nicaragua a través del tiempo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#linea">Saltar al contenido</a>
 
-  <div class="bg-flag"></div>
-
-  <header class="header">
-    <h1>Línea de Tiempo Nicaragua</h1>
-    <p>Explora los eventos fundamentales de nuestra historia nacional</p>
-    <a class="header-quiz-link" href="#quiz">Probar el mini quiz</a>
+  <!-- Barra superior -->
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#inicio" data-nav="inicio">
+      <span class="brand-flag" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="brand-text">Nicaragua a través del tiempo</span>
+    </a>
+    <nav class="topnav" aria-label="Secciones">
+      <a href="#linea" data-nav="linea">Línea de tiempo</a>
+      <a href="#epocas" data-nav="epocas">Comparar épocas</a>
+      <a href="#aprender" data-nav="aprender">Aprender</a>
+      <a href="#fuentes" data-nav="fuentes">Fuentes</a>
+    </nav>
   </header>
 
-  <main class="timeline-container">
-    <div class="timeline" id="timeline">
-    </div>
+  <main>
+    <!-- 1. PORTADA -->
+    <section class="hero" id="inicio" aria-labelledby="heroTitle">
+      <div class="hero-stripes" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="eyebrow">Proyecto de historia · Línea de tiempo interactiva</p>
+          <h1 id="heroTitle">Nicaragua a través del tiempo</h1>
+          <p class="hero-lead">Un recorrido por más de cinco siglos de historia nicaragüense: desde el primer contacto con los europeos en 1502 hasta las reformas constitucionales más recientes. Cada acontecimiento incluye imágenes históricas, mapas, personajes y las fuentes consultadas.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#linea">Explorar acontecimientos</a>
+            <a class="btn btn-ghost" href="#aprender">Poner a prueba mis conocimientos</a>
+          </div>
+          <ul class="hero-stats" aria-label="Datos del proyecto">
+            <li><strong id="statEvents">35</strong><span>acontecimientos</span></li>
+            <li><strong id="statSpan">523</strong><span>años de historia</span></li>
+            <li><strong id="statQuestions">73</strong><span>preguntas</span></li>
+            <li><strong id="statSources">—</strong><span>fuentes</span></li>
+          </ul>
+        </div>
+
+        <figure class="hero-figure" id="heroFigure">
+          <div class="hero-photo">
+            <svg class="hero-art" viewBox="0 0 400 300" role="img" aria-label="Ilustración: volcán junto a un lago bajo el sol">
+              <defs>
+                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fb8f2"/><stop offset="1" stop-color="#f7e3b0"/></linearGradient>
+                <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f8cff"/><stop offset="1" stop-color="#0b4f9e"/></linearGradient>
+              </defs>
+              <rect width="400" height="300" fill="url(#sky)"/>
+              <circle cx="318" cy="76" r="30" fill="#ffd54a" opacity=".95"/>
+              <path d="M-10 214 L96 128 L150 176 L226 82 L330 190 L410 150 L410 232 L-10 232 Z" fill="#3e5f4a"/>
+              <path d="M170 232 L226 82 L282 232 Z" fill="#2c4637"/>
+              <path d="M214 98 L226 82 L238 98 L230 104 L222 100 Z" fill="#e8e1d2"/>
+              <rect y="226" width="400" height="74" fill="url(#lake)"/>
+              <path d="M20 252 q12 -7 24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>
+              <path d="M60 278 q12 -7 24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="2"/>
+            </svg>
+          </div>
+          <figcaption class="hero-caption" id="heroCaption">Ilustración. Buscando una imagen histórica…</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 2. LÍNEA DE TIEMPO -->
+    <section class="section" id="linea" aria-labelledby="lineaTitle">
+      <div class="section-head">
+        <p class="eyebrow dark">Línea de tiempo</p>
+        <h2 id="lineaTitle">Los acontecimientos que marcaron al país</h2>
+        <p>Toca una tarjeta para ver las imágenes, el mapa, los personajes y las fuentes de cada hecho. Usa la barra de períodos para saltar entre épocas.</p>
+      </div>
+
+      <nav class="decade-nav" id="decadeNav" aria-label="Navegación por períodos">
+        <div class="decade-scroll" id="decadeScroll"></div>
+      </nav>
+
+      <div class="timeline-container">
+        <div class="timeline" id="timeline"></div>
+      </div>
+    </section>
+
+    <!-- 3. COMPARACIÓN DE ÉPOCAS -->
+    <section class="section section-tint" id="epocas" aria-labelledby="epocasTitle">
+      <div class="section-head">
+        <p class="eyebrow dark">Comparación de épocas</p>
+        <h2 id="epocasTitle">¿Cómo cambió Nicaragua?</h2>
+        <p>Elige dos épocas y compara quién gobernaba, cómo vivía la gente, el papel del exterior y los grandes conflictos.</p>
+      </div>
+      <div class="compare" id="compareBody"></div>
+    </section>
+
+    <!-- 4. ZONA DE APRENDIZAJE -->
+    <section class="section" id="aprender" aria-labelledby="aprenderTitle">
+      <div class="section-head">
+        <p class="eyebrow dark">Zona de aprendizaje</p>
+        <h2 id="aprenderTitle">Pon a prueba lo que sabes</h2>
+        <p>Quiz con tres niveles, resultado en porcentaje, revisión de errores, repaso de las preguntas falladas y récord personal guardado en tu navegador.</p>
+      </div>
+      <div class="learn-grid">
+        <div class="quiz-card" id="quizCard"></div>
+        <aside class="progress-panel" id="progressPanel" aria-label="Progreso"></aside>
+      </div>
+    </section>
+
+    <!-- 5. FUENTES Y CRÉDITOS -->
+    <section class="section section-tint" id="fuentes" aria-labelledby="fuentesTitle">
+      <div class="section-head">
+        <p class="eyebrow dark">Fuentes y créditos</p>
+        <h2 id="fuentesTitle">De dónde sale la información</h2>
+      </div>
+
+      <div class="sources-grid">
+        <article class="info-card">
+          <h3>Metodología</h3>
+          <ul class="plain-list">
+            <li>Cada acontecimiento se redactó a partir de las fuentes que aparecen en su ficha y en la bibliografía.</li>
+            <li>Cuando las fuentes difieren (fechas, cifras de víctimas, versiones de un hecho), la ficha lo indica en lugar de elegir una sola versión.</li>
+            <li>Los hechos recientes y políticamente sensibles se presentan con lo que documentan organismos y medios citados, sin juicios propios.</li>
+            <li>Las preguntas del quiz salen del contenido de las fichas y cada una tiene un nivel de dificultad: fácil, intermedio o avanzado.</li>
+            <li>Los mapas muestran la zona aproximada del hecho, no el punto exacto.</li>
+          </ul>
+        </article>
+
+        <article class="info-card">
+          <h3>Créditos visuales</h3>
+          <ul class="plain-list">
+            <li>Las imágenes se cargan desde Wikipedia y Wikimedia Commons. Solo se muestran imágenes de Commons, con su autor y licencia bajo cada foto.</li>
+            <li>Mapas: © colaboradores de <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> (licencia ODbL).</li>
+            <li>Tipografías: Poppins y Playfair Display (Google Fonts, licencia SIL OFL).</li>
+          </ul>
+          <details class="credits-box" id="registryBox">
+            <summary>Imágenes con crédito registrado</summary>
+            <div id="creditRegistry"></div>
+            <button type="button" class="btn btn-small" id="loadAllCredits">Cargar créditos de todas las imágenes</button>
+          </details>
+        </article>
+      </div>
+
+      <details class="biblio" id="biblio">
+        <summary>Bibliografía completa <span class="count-pill" id="biblioCount">0</span></summary>
+        <ul class="biblio-list" id="biblioList"></ul>
+      </details>
+    </section>
   </main>
 
-  <section class="quiz-section" id="quiz">
-    <div class="quiz-card" id="quizCard">
-    </div>
-  </section>
+  <footer class="site-footer">
+    <p>Nicaragua a través del tiempo · Proyecto educativo.</p>
+    <p><a href="#inicio">Volver al inicio ↑</a></p>
+  </footer>
 
-  <footer class="credits">Bandera de Nicaragua: Wikimedia Commons, autor C records (CC BY 3.0)</footer>
+  <!-- Navegación inferior (celular) -->
+  <nav class="bottomnav" aria-label="Secciones">
+    <a href="#inicio" data-nav="inicio"><span aria-hidden="true">🏠</span>Inicio</a>
+    <a href="#linea" data-nav="linea"><span aria-hidden="true">⏳</span>Línea</a>
+    <a href="#epocas" data-nav="epocas"><span aria-hidden="true">⚖️</span>Épocas</a>
+    <a href="#aprender" data-nav="aprender"><span aria-hidden="true">🎓</span>Aprender</a>
+    <a href="#fuentes" data-nav="fuentes"><span aria-hidden="true">📚</span>Fuentes</a>
+  </nav>
 
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal-content" id="modalContent">
-      <button class="close-btn" id="closeModal" aria-label="Cerrar">&times;</button>
-      <div id="modalBody">
+  <!-- Ventana de detalle -->
+  <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+    <div class="modal-sheet" id="modalSheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-topbar">
+        <button type="button" class="icon-btn" id="modalPrev" aria-label="Acontecimiento anterior">‹</button>
+        <span class="modal-counter" id="modalCounter" aria-live="polite"></span>
+        <button type="button" class="icon-btn" id="modalNext" aria-label="Acontecimiento siguiente">›</button>
+        <button type="button" class="icon-btn close" id="closeModal" aria-label="Cerrar">&times;</button>
       </div>
-      <button type="button" class="sources-btn" id="sourcesBtn" aria-expanded="false" aria-controls="sourcesPanel">Ver fuentes consultadas <span class="sources-count" id="sourcesCount"></span></button>
-      <div class="sources-panel" id="sourcesPanel" hidden>
-        <div class="sources-head">
-          <h4>Fuentes consultadas</h4>
-          <button type="button" class="sources-close" id="sourcesClose" aria-label="Cerrar fuentes">&times;</button>
-        </div>
-        <ul class="sources-list" id="sourcesList"></ul>
-      </div>
+      <div class="modal-scroll" id="modalBody"></div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="data.js"></script>
+  <script src="media.js"></script>
+  <script src="quizdata.js"></script>
+  <script src="app.js"></script>
+  <script src="eras.js"></script>
   <script src="quiz.js"></script>
 </body>
 </html>

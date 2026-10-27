@@ -1,264 +1,55 @@
-const quizBank = [
-  {
-    event: 1,
-    q: "¿En qué año llegó Cristóbal Colón por primera vez a las costas de lo que hoy es Nicaragua?",
-    options: ["1492", "1502", "1522", "1524"],
-    answer: 1,
-    explain: "Colón llegó en septiembre de 1502, durante su cuarto viaje, y se refugió de una tormenta en la desembocadura del río Coco."
-  },
-  {
-    event: 2,
-    q: "¿Quién dirigió la expedición de 1522–1523 que salió de Panamá y llegó hasta el gran lago de Nicaragua?",
-    options: ["Gil González Dávila", "Francisco Hernández de Córdoba", "William Walker", "José Santos Zelaya"],
-    answer: 0,
-    explain: "Gil González Dávila se reunió con el cacique Nicarao y luego chocó con Diriangén."
-  },
-  {
-    event: 3,
-    q: "¿Qué cacique cortó el paso a Gil González Dávila y lo obligó a retirarse en 1523?",
-    options: ["Nicarao", "Diriangén", "Andrés Castro", "Rigoberto Cabezas"],
-    answer: 1,
-    explain: "Diriangén pidió tres días para responder y después salió al encuentro de los españoles; es recordado como una de las primeras resistencias indígenas."
-  },
-  {
-    event: 4,
-    q: "¿Quién fundó León Viejo el 15 de junio de 1524?",
-    options: ["Pedrarias Dávila", "Gil González Dávila", "Francisco Hernández de Córdoba", "Cristóbal Colón"],
-    answer: 2,
-    explain: "Hernández de Córdoba fue enviado por Pedrarias. Las ruinas de León Viejo son Patrimonio Mundial de la UNESCO desde el año 2000."
-  },
-  {
-    event: 5,
-    q: "¿A orillas de qué lago fundó Hernández de Córdoba la ciudad de Granada?",
-    options: ["Lago Xolotlán (de Managua)", "Lago Cocibolca (de Nicaragua)", "Laguna de Apoyo", "Lago de Apanás"],
-    answer: 1,
-    explain: "Granada está junto al gran lago Cocibolca, que le dio acceso a las rutas comerciales. León Viejo, en cambio, se fundó junto al Xolotlán."
-  },
-  {
-    event: 6,
-    q: "Al llegar los españoles se estima que había entre 500 mil y 800 mil indígenas. ¿Cuántos registró el censo de 1581?",
-    options: ["15,694", "150,000", "300,000", "600,000"],
-    answer: 0,
-    explain: "El censo de 1581 registró apenas 15,694 indígenas, una muestra de la enorme caída de la población durante el siglo XVI."
-  },
-  {
-    event: 7,
-    q: "¿Qué volcán hizo erupción en 1578 y destruyó parcialmente León Viejo?",
-    options: ["Masaya", "Momotombo", "Concepción", "Cosigüina"],
-    answer: 1,
-    explain: "León Viejo estaba al pie del Momotombo. La erupción de 1578 inició el deterioro de la ciudad."
-  },
-  {
-    event: 8,
-    q: "¿Qué hecho ocurrido el 11 de enero de 1610 dio el golpe final a León Viejo?",
-    options: ["Un incendio provocado por piratas", "Un terremoto", "Una inundación del lago", "Una invasión británica"],
-    answer: 1,
-    explain: "Tras el terremoto, los habitantes trasladaron la ciudad a un nuevo sitio cerca de Sutiaba, donde está la actual León."
-  },
-  {
-    event: 9,
-    q: "¿Qué potencia europea firmó en 1740 un tratado de amistad y alianza con el rey misquito?",
-    options: ["Francia", "Gran Bretaña", "Países Bajos", "Portugal"],
-    answer: 1,
-    explain: "Gran Bretaña estableció después un superintendente en la Mosquitia (1749) y se retiró en 1787."
-  },
-  {
-    event: 10,
-    q: "¿Qué provincia centroamericana se sublevó en 1811 y alentó movimientos contra las autoridades coloniales en Nicaragua?",
-    options: ["San Salvador", "Chiapas", "Costa Rica", "Panamá"],
-    answer: 0,
-    explain: "Aunque Nicaragua oficialmente no se unió, hubo levantamientos y movimientos en León y Granada."
-  },
-  {
-    event: 11,
-    q: "¿Qué día de 1821 se declaró en Guatemala la independencia del Reino de Guatemala, del que Nicaragua formaba parte?",
-    options: ["4 de octubre", "15 de septiembre", "11 de octubre", "30 de abril"],
-    answer: 1,
-    explain: "El 11 de octubre de 1821, León proclamó la independencia absoluta y la unión al Imperio mexicano, mientras Granada se opuso."
-  },
-  {
-    event: 12,
-    q: "En julio de 1823, tras la caída del Imperio mexicano, ¿qué decidieron las provincias centroamericanas, incluida Nicaragua?",
-    options: [
-      "Declarar su independencia de México y formar las Provincias Unidas de Centroamérica",
-      "Declararse una monarquía",
-      "Anexarse a Colombia",
-      "Volver a depender de España"
-    ],
-    answer: 0,
-    explain: "Así nació la Federación, que luego se disolvió por la debilidad del gobierno federal y los conflictos entre liberales y conservadores."
-  },
-  {
-    event: 13,
-    q: "¿Qué país fue el primero en separarse de la Federación Centroamericana, el 30 de abril de 1838?",
-    options: ["Nicaragua", "Costa Rica", "Guatemala", "El Salvador"],
-    answer: 0,
-    explain: "Nicaragua fue el primero; ese mismo año le siguieron Costa Rica y Honduras."
-  },
-  {
-    event: 14,
-    q: "¿Quién tomó la ciudad de Granada en octubre de 1855?",
-    options: ["William Walker", "Patricio Rivas", "Máximo Jerez", "Tomás Martínez"],
-    answer: 0,
-    explain: "Walker llegó en junio de 1855 con unos 58 hombres. Patricio Rivas fue instalado como presidente, pero el poder real lo tenía Walker."
-  },
-  {
-    event: 15,
-    q: "¿Quién derribó a un filibustero con una piedra en la Batalla de San Jacinto?",
-    options: ["Andrés Castro", "José Dolores Estrada", "Benjamín Zeledón", "Augusto C. Sandino"],
-    answer: 0,
-    explain: "El sargento Andrés Castro se quedó sin municiones y usó una piedra. La batalla fue el 14 de septiembre de 1856."
-  },
-  {
-    event: 16,
-    q: "¿Ante qué comandante estadounidense capituló William Walker en Rivas el 1 de mayo de 1857?",
-    options: ["Smedley Butler", "Charles Henry Davis", "Philander Knox", "Henry Stimson"],
-    answer: 1,
-    explain: "Walker salió de Nicaragua con sus oficiales. Intentó volver en 1857 y 1860, y fue ejecutado en Honduras en 1860."
-  },
-  {
-    event: 17,
-    q: "¿En qué ciudad estalló la Revolución Liberal el 11 de julio de 1893?",
-    options: ["Granada", "Managua", "León", "Masaya"],
-    answer: 2,
-    explain: "Los liberales entraron a Managua el 25 de julio y José Santos Zelaya llegó a la presidencia."
-  },
-  {
-    event: 18,
-    q: "¿Qué general encabezó las tropas que reincorporaron la Mosquitia a Nicaragua en 1894?",
-    options: ["Rigoberto Cabezas", "Benjamín Zeledón", "José Dolores Estrada", "Tomás Martínez"],
-    answer: 0,
-    explain: "El gobierno de Zelaya envió tropas al mando del general Rigoberto Cabezas."
-  },
-  {
-    event: 19,
-    q: "¿Cómo se llama el documento que el secretario de Estado de EE. UU. entregó el 1 de diciembre de 1909 y que llevó a la caída de Zelaya?",
-    options: ["Pacto del Espino Negro", "Nota Knox", "Tratado de Managua", "Estatuto Fundamental"],
-    answer: 1,
-    explain: "La Nota Knox llegó después de que Zelaya ejecutara a dos mercenarios estadounidenses, Cannon y Groce."
-  },
-  {
-    event: 20,
-    q: "¿Cerca de qué ciudad se libró en 1912 la batalla de El Coyotepe, donde murió Benjamín Zeledón?",
-    options: ["Bluefields", "Estelí", "Masaya", "Rivas"],
-    answer: 2,
-    explain: "La batalla fue el 3 y 4 de octubre de 1912, en la intervención de los marines estadounidenses. Zeledón es Héroe Nacional."
-  },
-  {
-    event: 21,
-    q: "¿Cómo se llamó el ejército que Sandino organizó el 2 de septiembre de 1927?",
-    options: ["Guardia Nacional", "Ejército Defensor de la Soberanía Nacional", "Ejército Constitucionalista", "Ejército Popular Sandinista"],
-    answer: 1,
-    explain: "Sandino rechazó el Pacto del Espino Negro y combatió desde Las Segovias hasta el retiro de los marines, el 1 de enero de 1933."
-  },
-  {
-    event: 22,
-    q: "¿Qué cargo tenía Anastasio Somoza García cuando fue asesinado Sandino, en 1934?",
-    options: ["Presidente de la República", "Jefe de la Guardia Nacional", "Ministro de Relaciones Exteriores", "Embajador en Washington"],
-    answer: 1,
-    explain: "Sandino fue capturado el 21 de febrero de 1934, al salir de una cena con el presidente Sacasa."
-  },
-  {
-    event: 23,
-    q: "¿Cuántos años duró aproximadamente el dominio de la familia Somoza (1936–1979)?",
-    options: ["13 años", "23 años", "43 años", "63 años"],
-    answer: 2,
-    explain: "Fueron más de cuatro décadas, sostenidas por la Guardia Nacional."
-  },
-  {
-    event: 24,
-    q: "¿Qué poeta disparó contra Somoza García el 21 de septiembre de 1956 en León?",
-    options: ["Rubén Darío", "Rigoberto López Pérez", "Pablo Antonio Cuadra", "Carlos Fonseca"],
-    answer: 1,
-    explain: "Somoza murió el 29 de septiembre en la Zona del Canal de Panamá, y el poder pasó a sus hijos."
-  },
-  {
-    event: 25,
-    q: "¿Cuál es la fecha oficial de fundación del Frente Sandinista de Liberación Nacional (FSLN)?",
-    options: ["2 de septiembre de 1927", "21 de febrero de 1934", "23 de julio de 1961", "19 de julio de 1979"],
-    answer: 2,
-    explain: "Es la fecha oficial, aunque algunos historiadores señalan que la fundación fue un proceso y no un solo evento."
-  },
-  {
-    event: 26,
-    q: "¿En qué departamento se desarrolló la guerrilla de Pancasán, en 1967?",
-    options: ["Matagalpa", "Chinandega", "Rivas", "Río San Juan"],
-    answer: 0,
-    explain: "Tras la derrota, el FSLN cambió de estrategia y priorizó el trabajo político con las masas."
-  },
-  {
-    event: 27,
-    q: "¿Qué magnitud tuvo el terremoto que destruyó Managua el 23 de diciembre de 1972?",
-    options: ["4.2", "6.2", "8.2", "9.0"],
-    answer: 1,
-    explain: "Duró unos 30 segundos y los incendios agravaron los daños. Las cifras de fallecidos varían según la fuente."
-  },
-  {
-    event: 28,
-    q: "¿Qué periódico dirigía Pedro Joaquín Chamorro cuando fue asesinado, el 10 de enero de 1978?",
-    options: ["La Prensa", "Novedades", "Barricada", "El Nuevo Diario"],
-    answer: 0,
-    explain: "Su muerte provocó indignación popular, huelgas y aceleró la insurrección contra el régimen."
-  },
-  {
-    event: 29,
-    q: "¿Qué día de 1979 entraron a Managua las fuerzas del FSLN?",
-    options: ["17 de julio", "19 de julio", "20 de julio", "22 de agosto"],
-    answer: 1,
-    explain: "El 17 de julio Somoza salió del país. El 19 de julio entraron las fuerzas del FSLN y se instaló la Junta de Gobierno de Reconstrucción Nacional."
-  },
-  {
-    event: 30,
-    q: "¿A qué porcentaje bajó el analfabetismo con la Cruzada Nacional de Alfabetización de 1980?",
-    options: ["12.96 %", "30 %", "50.35 %", "0 %"],
-    answer: 0,
-    explain: "Antes de la Cruzada era de 50.35 %. En septiembre de 1980 la UNESCO entregó a Nicaragua el premio Nadezhda K. Krupskaya."
-  },
-  {
-    event: 31,
-    q: "¿Qué porcentaje aproximado de los votos obtuvo Violeta Barrios de Chamorro en las elecciones del 25 de febrero de 1990?",
-    options: ["25 %", "41 %", "55 %", "70 %"],
-    answer: 2,
-    explain: "Chamorro, candidata de la UNO, obtuvo cerca del 55 %. Daniel Ortega obtuvo cerca del 41 %. El FSLN entregó el gobierno el 25 de abril de 1990."
-  },
-  {
-    event: 32,
-    q: "¿Cuántos años de prisión le impuso una jueza, en diciembre de 2003, al expresidente Arnoldo Alemán por lavado de dinero, fraude y malversación?",
-    options: ["5 años", "10 años", "20 años", "30 años"],
-    answer: 2,
-    explain: "La jueza Juana Méndez lo condenó el 7 de diciembre de 2003. Cumplió casi toda la pena bajo arresto domiciliario y la Corte Suprema anuló la condena el 17 de enero de 2009."
-  },
-  {
-    event: 33,
-    q: "¿Qué día asumió Daniel Ortega la presidencia tras ganar las elecciones de noviembre de 2006?",
-    options: ["25 de abril de 1990", "19 de julio de 1979", "10 de enero de 2007", "5 de noviembre de 2006"],
-    answer: 2,
-    explain: "Ortega obtuvo cerca del 38 % de los votos y evitó una segunda vuelta. Asumió el 10 de enero de 2007, dieciséis años después de dejar el poder."
-  },
-  {
-    event: 34,
-    q: "¿Qué cambio del gobierno originó las protestas que comenzaron el 18 de abril de 2018?",
-    options: ["Una reforma al Instituto Nicaragüense de Seguridad Social (INSS)", "Una reforma a la ley electoral", "Una reforma al código penal", "Una reforma a la educación superior"],
-    answer: 0,
-    explain: "Los cambios al INSS reducían las pensiones. El gobierno los derogó el 22 de abril, pero las protestas continuaron."
-  },
-  {
-    event: 35,
-    q: "¿Qué figura creó la reforma constitucional que entró en vigor en febrero de 2025?",
-    options: ["Primer ministro", "Copresidente y copresidenta", "Presidencia rotativa", "Gobierno parlamentario"],
-    answer: 1,
-    explain: "La reforma creó la copresidencia de Daniel Ortega y Rosario Murillo, amplió el período presidencial de cinco a seis años y estableció que la Presidencia coordina a los demás órganos del Estado."
-  }
-];
+/* ==========================================================================
+   Zona de aprendizaje: quiz por niveles, resultados en %, revisión de
+   errores, repaso de falladas, récord personal y progreso.
+   Depende de: quizdata.js (quizBank), data.js (eventsData), app.js (store, esc, $)
+   ========================================================================== */
 
-const QUIZ_LENGTH = 5;
+const LEVELS = {
+  facil:      { label: 'Fácil',      icon: '🌱', desc: 'Fechas y personajes principales' },
+  intermedio: { label: 'Intermedio', icon: '📘', desc: 'Causas, lugares y consecuencias' },
+  avanzado:   { label: 'Avanzado',   icon: '🏆', desc: 'Cifras, nombres y detalles' },
+  mixto:      { label: 'Mixto',      icon: '🎲', desc: 'De fácil a difícil' }
+};
+const LEVEL_ORDER = ['facil', 'intermedio', 'avanzado'];
+const LENGTHS = [5, 10];
+const MASTERED_STREAK = 2; // aciertos seguidos para considerar una pregunta "dominada"
 
 const quizCard = document.getElementById('quizCard');
-let quizQuestions = [];
-let quizIndex = 0;
-let quizScore = 0;
-let quizMissed = [];
+const progressPanel = document.getElementById('progressPanel');
 
+let config = { level: 'facil', length: 5 };
+let session = null;
+
+/* ---------- Datos guardados ---------- */
+function qData() {
+  const d = store.get();
+  d.quiz = d.quiz || {};
+  d.quiz.best = d.quiz.best || {};
+  d.quiz.stats = d.quiz.stats || {};
+  d.quiz.history = d.quiz.history || [];
+  return d.quiz;
+}
+
+function loadPrefs() {
+  const p = qData().prefs;
+  if (p && LEVELS[p.level]) config.level = p.level;
+  if (p && LENGTHS.includes(p.length)) config.length = p.length;
+}
+
+function isMastered(id) {
+  const s = qData().stats[id];
+  return !!(s && s.streak >= MASTERED_STREAK);
+}
+
+function recordAnswer(id, ok) {
+  const stats = qData().stats;
+  const s = stats[id] || { ok: 0, bad: 0, streak: 0 };
+  if (ok) { s.ok++; s.streak++; } else { s.bad++; s.streak = 0; }
+  stats[id] = s;
+  store.save();
+}
+
+/* ---------- Utilidades ---------- */
 function shuffle(array) {
   const copy = array.slice();
   for (let i = copy.length - 1; i > 0; i--) {
@@ -269,55 +60,173 @@ function shuffle(array) {
 }
 
 function eventTitle(id) {
-  const ev = eventsData.find(e => e.id === id);
+  const ev = eventsData.find((e) => e.id === id);
   return ev ? ev.title : '';
 }
 
-function showQuizIntro() {
+function poolFor(level) {
+  return level === 'mixto' ? quizBank : quizBank.filter((q) => q.level === level);
+}
+
+function prepare(item) {
+  const options = shuffle(item.options.map((text, i) => ({ text, correct: i === item.answer })));
+  return { ...item, shuffled: options };
+}
+
+// Prioriza las preguntas que aún no se dominan, sin perder el azar.
+function pickQuestions(level, length) {
+  const take = (pool, n) => shuffle(pool).sort((a, b) => Number(isMastered(a.id)) - Number(isMastered(b.id))).slice(0, n);
+  if (level !== 'mixto') return take(poolFor(level), length).map(prepare);
+
+  const nHard = Math.max(1, Math.round(length * 0.2));
+  const nMid = Math.round(length * 0.4);
+  const nEasy = length - nHard - nMid;
+  const chosen = [
+    ...take(poolFor('facil'), nEasy),
+    ...take(poolFor('intermedio'), nMid),
+    ...take(poolFor('avanzado'), nHard)
+  ];
+  return chosen.map(prepare); // ya queda ordenado de fácil a difícil
+}
+
+function pct(score, total) {
+  return total ? Math.round((score / total) * 100) : 0;
+}
+
+function formatDate(ts) {
+  try {
+    return new Date(ts).toLocaleDateString('es', { day: 'numeric', month: 'short' });
+  } catch (e) { return ''; }
+}
+
+function bringIntoView() {
+  const r = quizCard.getBoundingClientRect();
+  if (r.top < 0 || r.top > window.innerHeight * 0.45) {
+    quizCard.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }
+}
+
+function levelBadge(level) {
+  const l = LEVELS[level];
+  return `<span class="level-badge lvl-${level}"><span aria-hidden="true">${l.icon}</span> ${l.label}</span>`;
+}
+
+/* ---------- Pantalla de configuración ---------- */
+function showSetup() {
+  session = null;
+  const best = qData().best;
+
+  const levelCards = ['facil', 'intermedio', 'avanzado', 'mixto'].map((key) => {
+    const l = LEVELS[key];
+    const count = poolFor(key).length;
+    const b5 = best[key + '-5'];
+    const b10 = best[key + '-10'];
+    const top = Math.max(b5 ? b5.pct : -1, b10 ? b10.pct : -1);
+    return `<button type="button" class="level-card lvl-${key}" role="radio" aria-checked="${config.level === key}" data-level="${key}">
+      <span class="level-icon" aria-hidden="true">${l.icon}</span>
+      <span class="level-name">${l.label}</span>
+      <span class="level-desc">${l.desc}</span>
+      <span class="level-meta">${count} preguntas${top >= 0 ? ` · Récord ${top} %` : ''}</span>
+    </button>`;
+  }).join('');
+
+  const lengthBtns = LENGTHS.map((n) =>
+    `<button type="button" class="seg-btn" role="radio" aria-checked="${config.length === n}" data-length="${n}">${n} preguntas</button>`).join('');
+
   quizCard.innerHTML = `
-    <h2 class="quiz-title">Mini quiz de historia</h2>
-    <p class="quiz-lead"> Responde ${QUIZ_LENGTH} preguntas de la historia de Nicaragua.</p>
-    <button type="button" class="quiz-btn" id="quizStart">Empezar el quiz</button>
+    <p class="quiz-count">Quiz de historia</p>
+    <h3 class="quiz-title">Elige tu reto</h3>
+    <p class="quiz-lead">Cada pregunta tiene su propio nivel de dificultad. Las que aún no dominas aparecen primero.</p>
+
+    <p class="field-label" id="lvlLabel">Nivel</p>
+    <div class="level-grid" role="radiogroup" aria-labelledby="lvlLabel">${levelCards}</div>
+
+    <p class="field-label" id="lenLabel">Cantidad de preguntas</p>
+    <div class="seg" role="radiogroup" aria-labelledby="lenLabel">${lengthBtns}</div>
+
+    <button type="button" class="quiz-btn big" id="quizStart">Empezar el quiz</button>
   `;
-  document.getElementById('quizStart').addEventListener('click', startQuiz);
+
+  $$('.level-card', quizCard).forEach((b) => b.addEventListener('click', () => {
+    config.level = b.dataset.level;
+    savePrefs();
+    $$('.level-card', quizCard).forEach((x) => x.setAttribute('aria-checked', String(x === b)));
+  }));
+  $$('.seg-btn', quizCard).forEach((b) => b.addEventListener('click', () => {
+    config.length = Number(b.dataset.length);
+    savePrefs();
+    $$('.seg-btn', quizCard).forEach((x) => x.setAttribute('aria-checked', String(x === b)));
+  }));
+  $('#quizStart', quizCard).addEventListener('click', () => startQuiz());
 }
 
+function savePrefs() {
+  qData().prefs = { level: config.level, length: config.length };
+  store.save();
+}
+
+/* ---------- Inicio de sesiones ---------- */
 function startQuiz() {
-  quizQuestions = shuffle(quizBank).slice(0, QUIZ_LENGTH).map((item) => {
-    const options = shuffle(item.options.map((text, i) => ({ text, correct: i === item.answer })));
-    return { ...item, shuffled: options };
-  });
-  quizIndex = 0;
-  quizScore = 0;
-  quizMissed = [];
-  showQuestion();
+  const length = Math.min(config.length, poolFor(config.level).length);
+  begin({ mode: 'normal', title: `${LEVELS[config.level].label} · ${length} preguntas`, questions: pickQuestions(config.level, length), level: config.level, length });
 }
 
+function startRetry(items) {
+  begin({ mode: 'retry', title: 'Repaso de preguntas falladas', questions: shuffle(items).map(prepare), level: config.level, length: items.length });
+}
+
+function startEventPractice(id) {
+  const items = quizBank.filter((q) => q.event === id);
+  if (!items.length) return;
+  begin({
+    mode: 'event',
+    title: 'Practica: ' + eventTitle(id),
+    questions: shuffle(items).map(prepare),
+    level: config.level,
+    length: items.length
+  });
+}
+
+function begin(s) {
+  session = { ...s, index: 0, score: 0, answers: [] };
+  showQuestion();
+  bringIntoView();
+}
+
+/* ---------- Pregunta ---------- */
 function showQuestion() {
-  const item = quizQuestions[quizIndex];
-  const percent = (quizIndex / QUIZ_LENGTH) * 100;
+  const item = session.questions[session.index];
+  const total = session.questions.length;
+  const percent = (session.index / total) * 100;
 
   const optionsHtml = item.shuffled
-    .map((opt, i) => `<button type="button" class="quiz-option" data-index="${i}">${opt.text}</button>`)
+    .map((opt, i) => `<button type="button" class="quiz-option" data-index="${i}"><span class="opt-key" aria-hidden="true">${i + 1}</span><span>${esc(opt.text)}</span></button>`)
     .join('');
 
   quizCard.innerHTML = `
-    <div class="quiz-progress" aria-hidden="true"><span style="width:${percent}%"></span></div>
-    <p class="quiz-count">Pregunta ${quizIndex + 1} de ${QUIZ_LENGTH}</p>
-    <h2 class="quiz-question">${item.q}</h2>
+    <div class="quiz-top">
+      <p class="quiz-count">Pregunta ${session.index + 1} de ${total}</p>
+      ${levelBadge(item.level)}
+    </div>
+    <div class="quiz-progress" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${session.index}"><span style="width:${percent}%"></span></div>
+    <p class="quiz-mode">${esc(session.title)}</p>
+    <h3 class="quiz-question" id="quizQuestion" tabindex="-1">${esc(item.q)}</h3>
     <div class="quiz-options">${optionsHtml}</div>
     <div class="quiz-feedback" id="quizFeedback" aria-live="polite"></div>
+    <button type="button" class="quiz-exit" id="quizExit">Salir del quiz</button>
   `;
 
-  quizCard.querySelectorAll('.quiz-option').forEach((btn) => {
-    btn.addEventListener('click', () => answerQuestion(Number(btn.dataset.index)));
-  });
+  $$('.quiz-option', quizCard).forEach((btn) => btn.addEventListener('click', () => answer(Number(btn.dataset.index))));
+  $('#quizExit', quizCard).addEventListener('click', showSetup);
+  $('#quizQuestion', quizCard).focus({ preventScroll: true });
 }
 
-function answerQuestion(chosen) {
-  const item = quizQuestions[quizIndex];
-  const buttons = quizCard.querySelectorAll('.quiz-option');
-  const isCorrect = item.shuffled[chosen].correct;
+function answer(chosen) {
+  const item = session.questions[session.index];
+  const total = session.questions.length;
+  const buttons = $$('.quiz-option', quizCard);
+  if (buttons[0] && buttons[0].disabled) return;
+  const ok = item.shuffled[chosen].correct;
 
   buttons.forEach((btn, i) => {
     btn.disabled = true;
@@ -325,51 +234,191 @@ function answerQuestion(chosen) {
     else if (i === chosen) btn.classList.add('wrong');
   });
 
-  if (isCorrect) {
-    quizScore++;
-  } else {
-    quizMissed.push(item.event);
-  }
+  if (ok) session.score++;
+  session.answers.push({
+    item,
+    ok,
+    chosenText: item.shuffled[chosen].text,
+    correctText: item.shuffled.find((o) => o.correct).text
+  });
+  recordAnswer(item.id, ok);
 
-  const isLast = quizIndex === QUIZ_LENGTH - 1;
-  const feedback = document.getElementById('quizFeedback');
+  const isLast = session.index === total - 1;
+  const feedback = $('#quizFeedback', quizCard);
   feedback.innerHTML = `
-    <p class="quiz-verdict ${isCorrect ? 'ok' : 'bad'}">${isCorrect ? '¡Correcto!' : 'Respuesta incorrecta.'}</p>
-    <p>${item.explain}</p>
+    <p class="quiz-verdict ${ok ? 'ok' : 'bad'}">${ok ? '¡Correcto!' : 'Respuesta incorrecta'}</p>
+    <p>${esc(item.explain)}</p>
+    <button type="button" class="chip-link" data-open-event="${item.event}">Leer: ${esc(eventTitle(item.event))}</button>
     <button type="button" class="quiz-btn" id="quizNext">${isLast ? 'Ver mi resultado' : 'Siguiente pregunta'}</button>
   `;
-  document.getElementById('quizNext').addEventListener('click', () => {
-    quizIndex++;
-    if (quizIndex < QUIZ_LENGTH) showQuestion();
-    else showResult();
+  const next = $('#quizNext', quizCard);
+  next.addEventListener('click', () => {
+    session.index++;
+    if (session.index < total) { showQuestion(); } else { showResult(); }
   });
+  next.focus({ preventScroll: true });
+  if (next.getBoundingClientRect().bottom > window.innerHeight) next.scrollIntoView({ block: 'end', behavior: 'smooth' });
 }
 
+document.addEventListener('keydown', (e) => {
+  if (!session || document.getElementById('modalOverlay').classList.contains('active')) return;
+  if (!/^[1-4]$/.test(e.key) || e.ctrlKey || e.metaKey || e.altKey) return;
+  const tag = (document.activeElement && document.activeElement.tagName) || '';
+  if (/INPUT|SELECT|TEXTAREA/.test(tag)) return;
+  const btn = $$('.quiz-option', quizCard)[Number(e.key) - 1];
+  if (btn && !btn.disabled) btn.click();
+});
+
+/* ---------- Resultado ---------- */
 function showResult() {
-  let message = 'Sigue practicando: repasa los eventos de abajo y vuelve a intentarlo.';
-  if (quizScore === QUIZ_LENGTH) message = '¡Excelente! Respondiste todo bien.';
-  else if (quizScore >= 3) message = '¡Muy bien! Ya dominas buena parte de la historia.';
+  const total = session.questions.length;
+  const score = session.score;
+  const percent = pct(score, total);
+  const wrong = session.answers.filter((a) => !a.ok);
 
-  const uniqueMissed = [...new Set(quizMissed)];
-  const reviewHtml = uniqueMissed.length
-    ? `<div class="quiz-review">
-         <p>Repasa estos eventos:</p>
-         ${uniqueMissed.map(id => `<button type="button" class="quiz-link" data-event="${id}">${eventTitle(id)}</button>`).join('')}
-       </div>`
-    : '';
+  let message;
+  if (percent === 100) message = '¡Excelente! Respondiste todo bien.';
+  else if (percent >= 80) message = '¡Muy bien! Ya dominas buena parte de esta historia.';
+  else if (percent >= 60) message = 'Vas por buen camino. Repasa los errores y vuelve a intentarlo.';
+  else message = 'Sigue practicando: lee los acontecimientos relacionados y repite las preguntas falladas.';
 
+  // Récord personal e historial (solo en quizzes normales)
+  let recordHtml = '';
+  if (session.mode === 'normal') {
+    const q = qData();
+    const key = session.level + '-' + session.length;
+    const prev = q.best[key];
+    const isRecord = !prev || percent > prev.pct;
+    if (isRecord) {
+      q.best[key] = { pct: percent, score, total, date: Date.now() };
+      recordHtml = `<p class="record new">🏅 ¡Nuevo récord personal! (${LEVELS[session.level].label}, ${session.length} preguntas)</p>`;
+    } else {
+      recordHtml = `<p class="record">Tu récord en este reto: <strong>${prev.pct} %</strong> (${prev.score} de ${prev.total})</p>`;
+    }
+    q.history.unshift({ date: Date.now(), level: session.level, length: session.length, score, total, pct: percent });
+    q.history = q.history.slice(0, 20);
+    store.save();
+  } else {
+    recordHtml = '<p class="record">Este repaso mejora tu progreso, pero no cambia tus récords.</p>';
+  }
+  if (!store.isPersistent()) {
+    recordHtml += '<p class="record warn">Tu navegador no permite guardar datos: el récord se perderá al cerrar la página.</p>';
+  }
+
+  const reviewHtml = wrong.length ? `
+    <section class="review" aria-labelledby="reviewTitle">
+      <h4 id="reviewTitle">Revisión de respuestas incorrectas (${wrong.length})</h4>
+      ${wrong.map((a) => `
+        <article class="review-item">
+          ${levelBadge(a.item.level)}
+          <p class="review-q">${esc(a.item.q)}</p>
+          <p class="review-a bad"><span>Tu respuesta</span>${esc(a.chosenText)}</p>
+          <p class="review-a good"><span>Respuesta correcta</span>${esc(a.correctText)}</p>
+          <p class="review-explain">${esc(a.item.explain)}</p>
+          <button type="button" class="chip-link" data-open-event="${a.item.event}">Leer el acontecimiento</button>
+        </article>`).join('')}
+    </section>` : '<p class="perfect">Sin errores en esta ronda. ¡Buen trabajo!</p>';
+
+  const circleStyle = `--p:${percent}`;
   quizCard.innerHTML = `
-    <p class="quiz-count">Resultado</p>
-    <h2 class="quiz-score">${quizScore} de ${QUIZ_LENGTH}</h2>
-    <p class="quiz-lead">${message}</p>
+    <p class="quiz-count">${esc(session.title)}</p>
+    <div class="result-top">
+      <div class="score-ring" style="${circleStyle}" role="img" aria-label="${percent} por ciento de aciertos"><span>${percent}<small>%</small></span></div>
+      <div>
+        <h3 class="quiz-score">${score} de ${total} correctas</h3>
+        <p class="quiz-lead">${message}</p>
+      </div>
+    </div>
+    ${recordHtml}
     ${reviewHtml}
-    <button type="button" class="quiz-btn" id="quizRetry">Intentar con otras 5 preguntas</button>
+    <div class="result-actions">
+      ${wrong.length ? `<button type="button" class="quiz-btn" id="quizRetryWrong">Repetir las ${wrong.length} falladas</button>` : ''}
+      ${session.mode === 'normal' ? '<button type="button" class="quiz-btn ghost" id="quizAgain">Nuevas preguntas, mismo nivel</button>' : ''}
+      <button type="button" class="quiz-btn ghost" id="quizChange">Cambiar nivel</button>
+    </div>
   `;
 
-  document.getElementById('quizRetry').addEventListener('click', startQuiz);
-  quizCard.querySelectorAll('.quiz-link').forEach((btn) => {
-    btn.addEventListener('click', () => openModal(Number(btn.dataset.event)));
+  const retryBtn = $('#quizRetryWrong', quizCard);
+  if (retryBtn) retryBtn.addEventListener('click', () => startRetry(wrong.map((a) => a.item)));
+  const againBtn = $('#quizAgain', quizCard);
+  if (againBtn) againBtn.addEventListener('click', startQuiz);
+  $('#quizChange', quizCard).addEventListener('click', () => { showSetup(); bringIntoView(); });
+
+  renderProgress();
+  bringIntoView();
+}
+
+/* ---------- Panel de progreso ---------- */
+function bar(label, value, total, cls = '') {
+  const p = pct(value, total);
+  return `<div class="meter ${cls}">
+    <div class="meter-head"><span>${label}</span><strong>${value} / ${total}</strong></div>
+    <div class="meter-track" role="progressbar" aria-label="${esc(label)}" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${value}"><span style="width:${p}%"></span></div>
+  </div>`;
+}
+
+let resetArmed = false;
+function renderProgress() {
+  if (!progressPanel) return;
+  const q = qData();
+  const masteredAll = quizBank.filter((x) => isMastered(x.id)).length;
+  const answeredAny = quizBank.filter((x) => q.stats[x.id]).length;
+
+  const levelBars = LEVEL_ORDER.map((lvl) => {
+    const pool = quizBank.filter((x) => x.level === lvl);
+    return bar(`${LEVELS[lvl].icon} ${LEVELS[lvl].label}`, pool.filter((x) => isMastered(x.id)).length, pool.length, 'lvl-' + lvl);
+  }).join('');
+
+  const recRows = LEVEL_ORDER.concat('mixto').map((lvl) => {
+    const cell = (n) => {
+      const b = q.best[lvl + '-' + n];
+      return b ? `<strong>${b.pct} %</strong>` : '<span class="dash">—</span>';
+    };
+    return `<tr><th scope="row">${LEVELS[lvl].label}</th><td>${cell(5)}</td><td>${cell(10)}</td></tr>`;
+  }).join('');
+
+  const hist = q.history.slice(0, 5).map((h) =>
+    `<li><span>${formatDate(h.date)} · ${LEVELS[h.level] ? LEVELS[h.level].label : ''} (${h.total})</span><strong>${h.pct} %</strong></li>`).join('');
+
+  progressPanel.innerHTML = `
+    <h3>Tu progreso</h3>
+    <p class="muted">${answeredAny === 0 ? 'Aún no has respondido preguntas. Tu progreso se guarda en este navegador.' : 'Una pregunta se considera dominada tras ' + MASTERED_STREAK + ' aciertos seguidos.'}</p>
+    ${bar('Preguntas dominadas', masteredAll, quizBank.length, 'main')}
+    ${levelBars}
+    ${bar('Acontecimientos explorados', viewedCount(), eventsData.length, 'events')}
+
+    <h4>Récords personales</h4>
+    <table class="records">
+      <thead><tr><th scope="col">Nivel</th><th scope="col">5 preg.</th><th scope="col">10 preg.</th></tr></thead>
+      <tbody>${recRows}</tbody>
+    </table>
+
+    ${hist ? `<h4>Últimos intentos</h4><ul class="history">${hist}</ul>` : ''}
+
+    <button type="button" class="reset-btn" id="resetProgress">${resetArmed ? 'Toca otra vez para borrar todo' : 'Borrar mi progreso'}</button>
+  `;
+
+  $('#resetProgress', progressPanel).addEventListener('click', () => {
+    if (!resetArmed) {
+      resetArmed = true;
+      renderProgress();
+      setTimeout(() => { if (resetArmed) { resetArmed = false; renderProgress(); } }, 4000);
+      return;
+    }
+    resetArmed = false;
+    store.reset();
+    $$('.seen').forEach((el) => { el.hidden = true; });
+    loadPrefs();
+    renderProgress();
+    if (!session) showSetup();
   });
 }
 
-document.addEventListener('DOMContentLoaded', showQuizIntro);
+window.renderProgress = renderProgress;
+window.startEventPractice = startEventPractice;
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadPrefs();
+  showSetup();
+  renderProgress();
+});
