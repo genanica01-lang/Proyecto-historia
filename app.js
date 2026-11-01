@@ -94,7 +94,10 @@ function excerpt(text, max) {
 const CATEGORY_LABEL = {
   nicaragua: 'Historia de Nicaragua',
   sandino: 'Lucha de Sandino',
-  fsln: 'Frente Sandinista (FSLN)'
+  fsln: 'Frente Sandinista (FSLN)',
+  cultura: 'Cultura y educación',
+  economia: 'Economía',
+  vida: 'Vida cotidiana'
 };
 
 /* ---------- Portada ---------- */
@@ -292,7 +295,7 @@ function updateSpy() {
   let activeKey = groups.length ? groups[0].key : null;
   groups.forEach((g) => {
     const m = document.getElementById(g.key);
-    if (m && m.getBoundingClientRect().top <= offset) activeKey = g.key;
+    if (m && !m.classList.contains('is-hidden') && m.getBoundingClientRect().top <= offset) activeKey = g.key;
   });
   const scroller = $('#decadeScroll');
   $$('.decade-chip', scroller).forEach((chip) => {
@@ -714,9 +717,256 @@ function renderSources() {
   renderCreditRegistry();
 }
 
+
+/* ---------- Buscador y filtros ---------- */
+const FILTER_ERAS = [
+  { id: 'todas', name: 'Todas las épocas', from: -Infinity, to: Infinity },
+  { id: 'previo', name: 'Contacto y conquista (hasta 1523)', from: 0, to: 1523 },
+  { id: 'colonial', name: 'Época colonial (1524–1820)', from: 1524, to: 1820 },
+  { id: 'independencia', name: 'Independencia y guerras civiles (1821–1892)', from: 1821, to: 1892 },
+  { id: 'liberal', name: 'Zelaya e intervención (1893–1933)', from: 1893, to: 1933 },
+  { id: 'somoza', name: 'Dinastía somocista (1934–1978)', from: 1934, to: 1978 },
+  { id: 'revolucion', name: 'Revolución Popular Sandinista (1979–1989)', from: 1979, to: 1989 },
+  { id: 'actual', name: 'Transición y Nicaragua actual (1990–2025)', from: 1990, to: Infinity }
+];
+const THEME_FILTERS = [
+  ['todos', 'Todos'],
+  ['nicaragua', 'Historia de Nicaragua'],
+  ['sandino', 'Lucha de Sandino'],
+  ['fsln', 'Frente Sandinista (FSLN)'],
+  ['cultura', 'Cultura y educación'],
+  ['economia', 'Economía'],
+  ['vida', 'Vida cotidiana']
+];
+
+// Quita acentos sin cambiar la longitud del texto (para poder resaltar coincidencias)
+function norm(s) {
+  return String(s || '')
+    .replace(/[\u00C0-\u017F]/g, (ch) => ch.normalize('NFD')[0])
+    .toLowerCase();
+}
+
+const filterState = { q: '', theme: 'todos', era: 'todas', unseen: false };
+
+function eventFields(ev) {
+  return [
+    ['Contexto', ev.context],
+    ['Cómo ocurrió', ev.details],
+    ['Consecuencias', ev.consequences],
+    ['Datos', (ev.datos || []).join(' · ')],
+    ['Personajes', (ev.protagonists || []).join(', ')]
+  ];
+}
+
+const searchIndex = new Map();
+function buildSearchIndex() {
+  eventsData.forEach((ev) => {
+    const text = [ev.date, ev.title, ...eventFields(ev).map((f) => f[1])].join(' | ');
+    searchIndex.set(ev.id, norm(text));
+  });
+}
+
+function highlight(text, terms) {
+  if (!terms.length) return esc(text);
+  const n = norm(text);
+  const ranges = [];
+  terms.forEach((t) => {
+    let i = n.indexOf(t);
+    while (i !== -1) { ranges.push([i, i + t.length]); i = n.indexOf(t, i + t.length); }
+  });
+  if (!ranges.length) return esc(text);
+  ranges.sort((x, y) => x[0] - y[0]);
+  const merged = [ranges[0].slice()];
+  ranges.slice(1).forEach((r) => {
+    const last = merged[merged.length - 1];
+    if (r[0] <= last[1]) last[1] = Math.max(last[1], r[1]); else merged.push(r.slice());
+  });
+  let out = '';
+  let pos = 0;
+  merged.forEach(([s, e]) => {
+    out += esc(text.slice(pos, s)) + '<mark>' + esc(text.slice(s, e)) + '</mark>';
+    pos = e;
+  });
+  return out + esc(text.slice(pos));
+}
+
+// Fragmento del texto donde aparece la búsqueda (si no está en el resumen de la tarjeta)
+function snippetFor(ev, terms) {
+  const base = ev.context || ev.details || '';
+  if (!terms.length) return { label: '', html: esc(excerpt(base, 150)) };
+  const shown = norm(excerpt(base, 150));
+  if (terms.some((t) => shown.includes(t))) return { label: '', html: highlight(excerpt(base, 150), terms) };
+  for (const [label, text] of eventFields(ev)) {
+    if (!text) continue;
+    const n = norm(text);
+    const idxs = terms.map((t) => n.indexOf(t)).filter((i) => i >= 0);
+    if (!idxs.length) continue;
+    const at = Math.min(...idxs);
+    let start = Math.max(0, at - 50);
+    if (start > 0) { const sp = text.indexOf(' ', start); start = sp === -1 ? start : sp + 1; }
+    const piece = text.slice(start, start + 150);
+    return { label, html: (start > 0 ? '…' : '') + highlight(piece, terms) + (start + 150 < text.length ? '…' : '') };
+  }
+  return { label: '', html: esc(excerpt(base, 150)) };
+}
+
+function matchesFilters(ev, terms) {
+  if (filterState.theme !== 'todos' && ev.category !== filterState.theme) return false;
+  const era = FILTER_ERAS.find((e) => e.id === filterState.era);
+  const y = eventYear(ev);
+  if (era && (y < era.from || y > era.to)) return false;
+  if (filterState.unseen && (store.get().viewed || {})[ev.id]) return false;
+  if (terms.length) {
+    const hay = searchIndex.get(ev.id) || '';
+    if (!terms.every((t) => hay.includes(t))) return false;
+  }
+  return true;
+}
+
+function applyFilters() {
+  const terms = norm(filterState.q).split(/\s+/).filter(Boolean);
+  const visibleByGroup = {};
+  let visible = 0;
+  let side = 0;
+
+  $$('.timeline-item').forEach((item) => {
+    const id = Number(item.querySelector('.card').dataset.id);
+    const ev = eventsData.find((e) => e.id === id);
+    const ok = matchesFilters(ev, terms);
+    item.classList.toggle('is-hidden', !ok);
+    if (!ok) return;
+    visible++;
+    const gk = groupOf(ev).key;
+    visibleByGroup[gk] = (visibleByGroup[gk] || 0) + 1;
+    item.classList.remove('is-left', 'is-right');
+    item.classList.add(side++ % 2 === 0 ? 'is-left' : 'is-right', 'in-view');
+
+    const snip = snippetFor(ev, terms);
+    $('.event-title', item).innerHTML = highlight(ev.title, terms);
+    $('.event-excerpt', item).innerHTML = (snip.label ? `<span class="snip-label">${esc(snip.label)}:</span> ` : '') + snip.html;
+  });
+
+  groups.forEach((g) => {
+    const marker = document.getElementById(g.key);
+    if (marker) marker.classList.toggle('is-hidden', !visibleByGroup[g.key]);
+  });
+  $$('.decade-chip').forEach((chip) => {
+    const n = visibleByGroup[chip.dataset.group] || 0;
+    chip.disabled = n === 0;
+    chip.classList.toggle('is-empty', n === 0);
+    const count = $('.decade-count', chip);
+    if (count) count.textContent = n;
+  });
+
+  const active = (filterState.q.trim() ? 1 : 0) + (filterState.theme !== 'todos' ? 1 : 0) + (filterState.era !== 'todas' ? 1 : 0) + (filterState.unseen ? 1 : 0);
+  const filtersOnly = active - (filterState.q.trim() ? 1 : 0);
+  const badge = $('#filterBadge');
+  badge.textContent = filtersOnly;
+  badge.hidden = filtersOnly === 0;
+  $('#searchClear').hidden = !filterState.q;
+  $('#searchStatus').textContent = active
+    ? `Mostrando ${visible} de ${eventsData.length} acontecimientos`
+    : `${eventsData.length} acontecimientos`;
+  $('#emptyState').hidden = visible !== 0;
+  $('#timeline').classList.toggle('is-empty', visible === 0);
+  updateTimelineProgress();
+  updateSpy();
+}
+
+function resetFilters() {
+  filterState.q = ''; filterState.theme = 'todos'; filterState.era = 'todas'; filterState.unseen = false;
+  $('#searchInput').value = '';
+  $('#filterEra').value = 'todas';
+  $('#filterUnseen').checked = false;
+  syncThemeChips();
+  applyFilters();
+}
+
+function syncThemeChips() {
+  $$('.theme-chip').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.theme === filterState.theme)));
+}
+
+function setupFilters() {
+  buildSearchIndex();
+  const counts = {};
+  eventsData.forEach((e) => { counts[e.category] = (counts[e.category] || 0) + 1; });
+
+  $('#filterTheme').innerHTML = THEME_FILTERS.map(([key, label]) =>
+    `<button type="button" class="theme-chip" role="radio" data-theme="${key}" aria-checked="${key === 'todos'}">${esc(label)}${key === 'todos' ? '' : ` <span class="chip-n">${counts[key] || 0}</span>`}</button>`).join('');
+  $('#filterEra').innerHTML = FILTER_ERAS.map((e) => `<option value="${e.id}">${esc(e.name)}</option>`).join('');
+
+  let timer = null;
+  $('#searchInput').addEventListener('input', (e) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { filterState.q = e.target.value; applyFilters(); }, 120);
+    $('#searchClear').hidden = !e.target.value;
+  });
+  $('#searchInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && e.target.value) { e.preventDefault(); resetSearchText(); }
+    if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); const first = $('.timeline-item:not(.is-hidden) .card'); if (first) first.scrollIntoView({ block: 'center' }); }
+  });
+  $('#searchClear').addEventListener('click', () => { resetSearchText(); $('#searchInput').focus(); });
+  function resetSearchText() { $('#searchInput').value = ''; filterState.q = ''; applyFilters(); }
+
+  $('#filterTheme').addEventListener('click', (e) => {
+    const b = e.target.closest('.theme-chip');
+    if (!b) return;
+    filterState.theme = b.dataset.theme; syncThemeChips(); applyFilters();
+  });
+  $('#filterEra').addEventListener('change', (e) => { filterState.era = e.target.value; applyFilters(); });
+  $('#filterUnseen').addEventListener('change', (e) => { filterState.unseen = e.target.checked; applyFilters(); });
+  $('#filterReset').addEventListener('click', resetFilters);
+  $('#emptyReset').addEventListener('click', resetFilters);
+  $('#filterToggle').addEventListener('click', () => {
+    const body = $('#filterBody');
+    const open = body.hidden;
+    body.hidden = !open;
+    $('#filterToggle').setAttribute('aria-expanded', String(open));
+  });
+
+  // Atajo: "/" enfoca el buscador
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (/INPUT|SELECT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) return;
+    if (document.getElementById('modalOverlay').classList.contains('active')) return;
+    e.preventDefault();
+    $('#searchInput').focus();
+    $('#searchPanel').scrollIntoView({ block: 'center' });
+  });
+
+  applyFilters();
+}
+
+
+/* ---------- Modo oscuro ---------- */
+function applyTheme(theme, save) {
+  const dark = theme === 'dark';
+  if (dark) document.documentElement.setAttribute('data-theme', 'dark'); else document.documentElement.removeAttribute('data-theme');
+  const btn = $('#themeToggle');
+  const label = dark ? 'Cambiar al modo claro' : 'Cambiar al modo oscuro';
+  btn.setAttribute('aria-label', label);
+  btn.setAttribute('aria-pressed', String(dark));
+  $('#themeTip').textContent = label;
+  if (save) { store.get().theme = dark ? 'dark' : 'light'; store.save(); }
+}
+
+function setupTheme() {
+  const btn = $('#themeToggle');
+  applyTheme(store.get().theme === 'dark' ? 'dark' : 'light', false);
+  let tipTimer = null;
+  btn.addEventListener('click', () => {
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+    btn.classList.add('show-tip');          // en celular no hay "hover": se muestra un momento
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(() => btn.classList.remove('show-tip'), 1800);
+  });
+}
+
 /* ---------- Inicio ---------- */
 document.addEventListener('DOMContentLoaded', () => {
+  setupTheme();
   renderTimeline();
+  setupFilters();
   setupHero();
   renderSources();
   if (window.renderCompare) window.renderCompare();

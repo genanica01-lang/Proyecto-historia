@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#0b2545">
   <meta name="description" content="Línea de tiempo interactiva de la historia de Nicaragua: acontecimientos con imágenes, mapas y fuentes, quiz por niveles y comparación de épocas.">
   <title>Nicaragua a través del tiempo</title>
+  <script>try{var t=JSON.parse(localStorage.getItem("nicaragua-tiempo.v2")||"{}").theme;if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,12 +21,19 @@
       <span class="brand-flag" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="brand-text">Nicaragua a través del tiempo</span>
     </a>
-    <nav class="topnav" aria-label="Secciones">
-      <a href="#linea" data-nav="linea">Línea de tiempo</a>
-      <a href="#epocas" data-nav="epocas">Comparar épocas</a>
-      <a href="#aprender" data-nav="aprender">Aprender</a>
-      <a href="#fuentes" data-nav="fuentes">Fuentes</a>
-    </nav>
+    <div class="topbar-right">
+      <nav class="topnav" aria-label="Secciones">
+        <a href="#linea" data-nav="linea">Línea de tiempo</a>
+        <a href="#epocas" data-nav="epocas">Comparar épocas</a>
+        <a href="#aprender" data-nav="aprender">Aprender</a>
+        <a href="#fuentes" data-nav="fuentes">Fuentes</a>
+      </nav>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Cambiar al modo oscuro" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7z" fill="currentColor"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3 7 7M17 17l1.7 1.7M18.7 5.3 17 7M7 17l-1.7 1.7"/></g></svg>
+        <span class="theme-tip" id="themeTip" role="tooltip">Cambiar al modo oscuro</span>
+      </button>
+    </div>
   </header>
 
   <main>
@@ -36,15 +44,15 @@
         <div class="hero-text">
           <p class="eyebrow">Proyecto de historia · Línea de tiempo interactiva</p>
           <h1 id="heroTitle">Nicaragua a través del tiempo</h1>
-          <p class="hero-lead">Un recorrido por más de cinco siglos de historia nicaragüense: desde el primer contacto con los europeos en 1502 hasta las reformas constitucionales más recientes. Cada acontecimiento incluye imágenes históricas, mapas, personajes y las fuentes consultadas.</p>
+          <p class="hero-lead">Un recorrido por más de cinco siglos de historia nicaragüense: desde el primer contacto con los europeos en 1502 hasta las reformas constitucionales más recientes. Además de la política, repasa la economía, la cultura y la vida cotidiana. Cada acontecimiento incluye imágenes históricas, mapas, personajes y las fuentes consultadas.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#linea">Explorar acontecimientos</a>
             <a class="btn btn-ghost" href="#aprender">Poner a prueba mis conocimientos</a>
           </div>
           <ul class="hero-stats" aria-label="Datos del proyecto">
-            <li><strong id="statEvents">35</strong><span>acontecimientos</span></li>
+            <li><strong id="statEvents">43</strong><span>acontecimientos</span></li>
             <li><strong id="statSpan">523</strong><span>años de historia</span></li>
-            <li><strong id="statQuestions">73</strong><span>preguntas</span></li>
+            <li><strong id="statQuestions">93</strong><span>preguntas</span></li>
             <li><strong id="statSources">—</strong><span>fuentes</span></li>
           </ul>
         </div>
@@ -79,11 +87,43 @@
         <p>Toca una tarjeta para ver las imágenes, el mapa, los personajes y las fuentes de cada hecho. Usa la barra de períodos para saltar entre épocas.</p>
       </div>
 
+
+      <div class="search-panel" id="searchPanel" role="search">
+        <div class="search-row">
+          <div class="search-field">
+            <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input type="search" id="searchInput" placeholder="Buscar: Darío, café, 1979…" aria-label="Buscar acontecimientos" autocomplete="off" enterkeyhint="search">
+            <button type="button" class="search-clear" id="searchClear" aria-label="Borrar búsqueda" hidden>&times;</button>
+          </div>
+          <button type="button" class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="filterBody">
+            <span aria-hidden="true">⚙</span> Filtros <span class="filter-badge" id="filterBadge" hidden>0</span>
+          </button>
+        </div>
+        <div class="filter-body" id="filterBody" hidden>
+          <fieldset class="filter-group">
+            <legend>Tema</legend>
+            <div class="chip-row" id="filterTheme" role="radiogroup" aria-label="Tema"></div>
+          </fieldset>
+          <div class="filter-group">
+            <label for="filterEra">Época</label>
+            <select id="filterEra"></select>
+          </div>
+          <label class="check"><input type="checkbox" id="filterUnseen"> <span>Solo los que aún no he visto</span></label>
+          <button type="button" class="filter-reset" id="filterReset">Limpiar filtros</button>
+        </div>
+        <p class="search-status" id="searchStatus" aria-live="polite"></p>
+      </div>
+
       <nav class="decade-nav" id="decadeNav" aria-label="Navegación por períodos">
         <div class="decade-scroll" id="decadeScroll"></div>
       </nav>
 
       <div class="timeline-container">
+        <div class="empty-state" id="emptyState" hidden>
+          <p class="empty-title">No encontramos acontecimientos</p>
+          <p>Prueba con otra palabra (por ejemplo un nombre, un lugar o un año) o quita algún filtro.</p>
+          <button type="button" class="btn btn-small" id="emptyReset">Limpiar búsqueda y filtros</button>
+        </div>
         <div class="timeline" id="timeline"></div>
       </div>
     </section>
@@ -109,6 +149,10 @@
         <div class="quiz-card" id="quizCard"></div>
         <aside class="progress-panel" id="progressPanel" aria-label="Progreso"></aside>
       </div>
+      <details class="teacher-card" id="teacherCard">
+        <summary><span class="teacher-title">👩‍🏫 Modo profesor</span><span class="muted">Crea un código de clase y calcula el promedio del grupo</span></summary>
+        <div class="teacher-body" id="teacherBody"></div>
+      </details>
     </section>
 
     <!-- 5. FUENTES Y CRÉDITOS -->
@@ -124,6 +168,7 @@
           <ul class="plain-list">
             <li>Cada acontecimiento se redactó a partir de las fuentes que aparecen en su ficha y en la bibliografía.</li>
             <li>Cuando las fuentes difieren (fechas, cifras de víctimas, versiones de un hecho), la ficha lo indica en lugar de elegir una sola versión.</li>
+            <li>Además de los hechos políticos, se incluyen acontecimientos de economía, cultura y vida cotidiana, para ver cómo vivía y cambiaba la sociedad.</li>
             <li>Los hechos recientes y políticamente sensibles se presentan con lo que documentan organismos y medios citados, sin juicios propios.</li>
             <li>Las preguntas del quiz salen del contenido de las fichas y cada una tiene un nivel de dificultad: fácil, intermedio o avanzado.</li>
             <li>Los mapas muestran la zona aproximada del hecho, no el punto exacto.</li>

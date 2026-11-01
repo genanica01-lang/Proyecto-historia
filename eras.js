@@ -11,9 +11,10 @@ const ERAS = [
       sociedad: 'La población indígena cayó de entre 500 mil y 800 mil personas a 15,694 en el censo de 1581. Se extendieron el mestizaje y el cristianismo.',
       exterior: 'Dependía de la Corona española. En la Costa Caribe, Gran Bretaña tuvo influencia desde el tratado de 1740 hasta su retiro en 1787.',
       territorio: 'Se fundaron León Viejo y Granada en 1524. León se trasladó cerca de Sutiaba tras el terremoto de 1610, y el Pacífico y el Caribe se desarrollaron de forma distinta.',
-      conflicto: 'La conquista no fue pacífica: caciques como Diriangén resistieron a los españoles.'
+      conflicto: 'La conquista no fue pacífica: caciques como Diriangén resistieron a los españoles.',
+      cultura: 'La vida cultural giró en torno a la Iglesia: en León funcionaba desde 1680 el Seminario de San Ramón, base de la Universidad de León, decretada en 1812. Las devociones religiosas, como la Purísima en El Viejo, marcaban el calendario.'
     },
-    events: [3, 4, 5, 6, 8, 9]
+    events: [3, 4, 5, 6, 8, 9, 36]
   },
   {
     id: 'independencia', name: 'Independencia y guerras civiles', years: '1821–1893', from: 1821, to: 1893, color: '#2e7d32',
@@ -23,9 +24,10 @@ const ERAS = [
       sociedad: 'La vida política estuvo marcada por la rivalidad entre ambas ciudades. Desde 1854 el país vivía una guerra civil.',
       exterior: 'El filibustero William Walker tomó Granada en 1855 y amenazó la soberanía de Centroamérica. Los ejércitos centroamericanos lo derrotaron en 1857.',
       territorio: 'La Mosquitia seguía bajo protectorado británico hasta el Tratado de Managua de 1860, que reconoció la soberanía de Nicaragua con autonomía misquita.',
-      conflicto: 'La Guerra Nacional (1856–1857), con la batalla de San Jacinto como símbolo de la defensa de la soberanía.'
+      conflicto: 'La Guerra Nacional (1856–1857), con la batalla de San Jacinto como símbolo de la defensa de la soberanía.',
+      cultura: 'El café empezó a cambiar la economía desde 1848 y cobró fuerza hacia finales del siglo. En León nació La Gritería hacia 1857, Rubén Darío publicó «Azul…» en 1888 y el béisbol llegó a Bluefields ese mismo año.'
     },
-    events: [11, 12, 13, 14, 15, 16]
+    events: [11, 12, 13, 14, 15, 16, 37, 38, 39, 40]
   },
   {
     id: 'liberal', name: 'Zelaya e intervención', years: '1893–1933', from: 1893, to: 1933, color: '#c2410c',
@@ -35,9 +37,10 @@ const ERAS = [
       sociedad: 'Comenzaron reformas institucionales, como la Ley Orgánica de Tribunales de 1894. Benjamín Zeledón y luego Sandino se volvieron símbolos de resistencia nacionalista.',
       exterior: 'La Nota Knox (1909) precedió a la caída de Zelaya. Los marines estadounidenses desembarcaron en 1912 y se retiraron el 1 de enero de 1933.',
       territorio: 'En 1894 la Mosquitia se reincorporó al Estado nicaragüense. Algunos estudios señalan que no se tomaron en cuenta los derechos de sus habitantes.',
-      conflicto: 'Resistencia a la intervención: Zeledón en El Coyotepe (1912) y el Ejército Defensor de la Soberanía Nacional de Sandino (1927–1933).'
+      conflicto: 'Resistencia a la intervención: Zeledón en El Coyotepe (1912) y el Ejército Defensor de la Soberanía Nacional de Sandino (1927–1933).',
+      cultura: 'La reforma monetaria de 1912 creó el córdoba. El béisbol se popularizó y, según un estudio, dejó de ser un deporte de clase cuando los trabajadores empezaron a practicarlo. Rubén Darío murió en León en 1916.'
     },
-    events: [17, 18, 19, 20, 21]
+    events: [17, 18, 19, 20, 21, 41]
   },
   {
     id: 'somoza', name: 'Dinastía somocista', years: '1936–1979', from: 1936, to: 1979, color: '#6b21a8',
@@ -47,9 +50,10 @@ const ERAS = [
       sociedad: 'El régimen se mantuvo con una fuerte persecución a la oposición. El terremoto de 1972 dejó a Managua «sin centro» y expuso fallas urbanas y políticas.',
       exterior: 'Tras el retiro de los marines en 1933, la Guardia Nacional fue la base del poder de la familia.',
       territorio: 'El terremoto de Managua (1972) destruyó el centro de la capital; entre 250,000 y 300,000 personas quedaron sin hogar.',
-      conflicto: 'El asesinato de Sandino (1934), la fundación del FSLN (1961), Pancasán (1967) y el asesinato de Pedro Joaquín Chamorro (1978) llevaron a la insurrección.'
+      conflicto: 'El asesinato de Sandino (1934), la fundación del FSLN (1961), Pancasán (1967) y el asesinato de Pedro Joaquín Chamorro (1978) llevaron a la insurrección.',
+      cultura: 'El Teatro Nacional Rubén Darío se inauguró en 1969 y sobrevivió al terremoto de 1972. En 1975 se estrenó la Misa campesina de Carlos Mejía Godoy, que fue prohibida pocos días después. La liga profesional de béisbol se interrumpió en 1967.'
     },
-    events: [22, 23, 24, 25, 26, 27, 28]
+    events: [22, 23, 24, 25, 26, 27, 28, 42, 43]
   },
   {
     id: 'revolucion', name: 'Revolución Popular Sandinista', years: '1979–1990', from: 1979, to: 1990, color: '#b91c1c',
@@ -59,7 +63,8 @@ const ERAS = [
       sociedad: 'La Cruzada Nacional de Alfabetización (1980) movilizó a más de 100,000 jóvenes y redujo el analfabetismo de 50.35 % a 12.96 %. La UNESCO la premió ese año.',
       exterior: 'Hubo un conflicto armado con los contras, que completaron su desmovilización el 26 de junio de 1990.',
       territorio: 'Se extendió la presencia del Estado en zonas rurales mediante la alfabetización y otros programas.',
-      conflicto: 'Las elecciones del 25 de febrero de 1990 las ganó la oposición, y el FSLN entregó el gobierno el 25 de abril.'
+      conflicto: 'Las elecciones del 25 de febrero de 1990 las ganó la oposición, y el FSLN entregó el gobierno el 25 de abril.',
+      cultura: 'La Cruzada de Alfabetización (1980) fue el gran proyecto educativo de la década, y la Misa campesina se editó en Nicaragua ese mismo año. En 1988 el gobierno cambió de golpe todo el circulante por un nuevo córdoba, en medio de la inflación.'
     },
     events: [29, 30, 31]
   },
@@ -71,7 +76,8 @@ const ERAS = [
       sociedad: 'Chamorro fue la primera mujer elegida presidenta en América. Las protestas de abril de 2018 comenzaron por cambios al INSS; la CIDH verificó al menos 264 muertes hasta el 11 de julio de 2018 (la cifra es disputada).',
       exterior: 'La CIDH, el GIEI y la ONU documentaron violaciones de derechos humanos en 2018, y el gobierno rechazó el informe. La reforma de 2025 fue criticada por la ONU, la OEA, Estados Unidos y el Parlamento Europeo.',
       territorio: 'Managua sigue siendo el centro político. Otra reforma aprobada en primera votación en 2026 ampliaría el mandato a siete años, con ratificación prevista para el 18 de enero de 2027.',
-      conflicto: 'Casos de corrupción (Alemán fue condenado en 2003 y la condena se anuló en 2009) y disputas sobre la reelección y el equilibrio de poderes.'
+      conflicto: 'Casos de corrupción (Alemán fue condenado en 2003 y la condena se anuló en 2009) y disputas sobre la reelección y el equilibrio de poderes.',
+      cultura: 'El córdoba cumplió cien años en 2012. León Viejo (2000) y la catedral de León (2011) son Patrimonio Mundial, y el café sigue siendo una de las principales exportaciones, con Jinotega, Matagalpa, Nueva Segovia, Madriz y Carazo como zonas productoras.'
     },
     events: [31, 32, 33, 34, 35]
   }
@@ -82,7 +88,8 @@ const ERA_ROWS = [
   ['sociedad', 'Sociedad y vida cotidiana', '👥'],
   ['exterior', 'Relación con el exterior', '🌎'],
   ['territorio', 'Territorio y ciudades', '🗺️'],
-  ['conflicto', 'Conflicto principal', '⚔️']
+  ['conflicto', 'Conflicto principal', '⚔️'],
+  ['cultura', 'Cultura, economía y vida cotidiana', '🎭']
 ];
 
 (function () {

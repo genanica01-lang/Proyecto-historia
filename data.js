@@ -217,6 +217,22 @@ const eventsData = [
     ]
   },
   {
+    id: 36,
+    date: "1812",
+    title: "Se decreta la Universidad de León",
+    category: "cultura",
+    context: "Durante la época colonial, la educación superior de la provincia de Nicaragua dependía de la Iglesia. Desde 1680 funcionaba en León el Colegio Seminario Tridentino de San Ramón, antecedente de la futura universidad.",
+    details: "El 10 de enero de 1812, las Cortes de Cádiz emitieron el decreto que permitió que el Seminario Conciliar de León se convirtiera en universidad, con las mismas facultades que las demás de América. Aunque el decreto es de 1812, la institución se instaló oficialmente en 1816. Los doctores Tomás Ruiz, Agustín Ayestas y Nicolás García Jerez son considerados sus fundadores.",
+    consequences: "Fue la segunda universidad de Centroamérica y la última que España fundó en América durante la colonia. De sus aulas salieron figuras políticas y culturales de Nicaragua y de otros países de la región. En 1947 pasó a ser Universidad Nacional y, a comienzos de los años ochenta, se separó en UNAN-León y UNAN-Managua.",
+    datos: ["Decreto 117 de las Cortes de Cádiz, del 10 de enero de 1812.", "Se instaló oficialmente en 1816.", "Fundadores reconocidos: Tomás Ruiz, Agustín Ayestas y Nicolás García Jerez.", "El lema actual de la UNAN-León es «A la libertad por la universidad»."],
+    protagonists: ["Tomás Ruiz", "Agustín Ayestas", "Nicolás García Jerez"],
+    sources: [
+      src("Historia de la educación superior en Nicaragua (Fundación Enrique Bolaños)", "https://sajurin.enriquebolanos.org/docs/2990-2.pdf"),
+      src("UNAN-León: 50 años de Autonomía Universitaria (revista Islas)", "https://islas.uclv.edu.cu/index.php/islas/article/download/374/342/664"),
+      src("UNAN-León (Wikipedia, en inglés)", "https://en.wikipedia.org/wiki/National_Autonomous_University_of_Nicaragua_at_Le%C3%B3n")
+    ]
+  },
+  {
     id: 11,
     date: "1821",
     title: "Independencia de Centroamérica",
@@ -280,6 +296,22 @@ const eventsData = [
       src("Nicaragua, capítulo de historia (Country Studies, en inglés)", "https://countrystudies.us/nicaragua/7.htm"),
       src("Cronología de gobernantes de Nicaragua (Rulers.org, en inglés)", "https://www.rulers.org/ruln2.html"),
       src("Nicaragua (World Statesmen, en inglés)", "https://worldstatesmen.org/Nicaragua.htm")
+    ]
+  },
+  {
+    id: 37,
+    date: "1848–1893",
+    title: "El café empieza a transformar la economía",
+    category: "economia",
+    context: "Hasta mediados del siglo XIX la economía dependía de productos como el añil, el hule y el oro. En esa época el café llegó a Nicaragua.",
+    details: "Según el historiador Paul Levy, citado en un estudio sobre la sociedad cafetalera, la primera hacienda de café se habría establecido en 1848 en Jinotepe, en la meseta de Carazo. Durante varias décadas el crecimiento fue lento: en 1871 el café ocupaba apenas el cuarto lugar entre los productos de exportación, detrás del añil, el hule y el oro. Con el tiempo el cultivo se extendió al norte, a Matagalpa y Jinotega, donde llegaron inmigrantes europeos y pioneros como Otto Kühl impulsaron el beneficiado del grano a finales del siglo XIX.",
+    consequences: "El café impulsó la infraestructura de transporte y comunicaciones del Pacífico y reforzó la conexión de Nicaragua con la economía mundial. En 1893, con precios internacionales altos, el grupo cafetalero respaldó la Revolución Liberal de Zelaya; algunos autores ven en su gobierno la expresión política de los grandes productores de café. Según otros estudios, el cambio también aumentó la desigualdad.",
+    datos: ["Primera hacienda cafetalera: 1848, en Jinotepe (Carazo), según Paul Levy.", "En 1871 el café era el cuarto producto de exportación, después del añil, el hule y el oro.", "Los orígenes exactos son inciertos: algunas fuentes hablan de más de 220 años de historia cafetalera y otras sitúan el primer cultivo hacia 1848.", "Hoy las principales zonas cafetaleras son Jinotega, Matagalpa, Nueva Segovia, Madriz y Carazo."],
+    protagonists: ["Otto Kühl (pionero del beneficiado en Matagalpa)", "José Santos Zelaya"],
+    sources: [
+      src("El café en Nicaragua: formación de la sociedad cafetalera (Dialnet)", "https://dialnet.unirioja.es/descarga/articulo/5076071.pdf"),
+      src("Palabras de Enrique Bolaños sobre «Nicaragua y su café» (Fundación Enrique Bolaños)", "https://sajurin.enriquebolanos.org/docs/Presentacion%20libro%20de%20Eddy%20Kuhl%20-%20Nic%20y%20su%20Cafe%20-%2020%20Abr%2004.pdf"),
+      src("Café nicaragüense alcanzó récord histórico de exportaciones (Prensa Latina)", "https://www.prensa-latina.cu/?p=1771680")
     ]
   },
   {
@@ -347,6 +379,56 @@ const eventsData = [
       src("Battle of San Juan del Sur (Wikipedia, en inglés)", "https://en.wikipedia.org/wiki/Battle_of_San_Juan_del_Sur"),
       src("La capitulación, Rivas 1 de mayo de 1857 (Fundación Enrique Bolaños)", "https://sajurin.enriquebolanos.org/docs/ABG-T4-%20Anexo%20H.pdf"),
       src("Batalla de Rivas (Museo Histórico Cultural Juan Santamaría, Costa Rica)", "https://museojuansantamaria.go.cr/wp-content/uploads/materiales/brochure_batalla_de_rivas.pdf")
+    ]
+  },
+  {
+    id: 38,
+    date: "Hacia 1857",
+    title: "Nace La Gritería en León",
+    category: "vida",
+    context: "La devoción a la Inmaculada Concepción de María, la Purísima, es muy antigua en Nicaragua y se asocia a la imagen venerada en El Viejo (Chinandega). En 1854 el papa Pío IX proclamó el dogma de la Inmaculada Concepción, cuya fiesta es el 8 de diciembre.",
+    details: "Según la tradición, hacia 1857 una erupción volcánica (la leyenda menciona el Cerro Negro) llevó a los vecinos de León a reunirse para rezar y cantar a la Virgen. Como la iglesia no alcanzaba para tanta gente, las familias empezaron a levantar altares en sus casas. De ahí surgió La Gritería: la noche del 7 de diciembre la gente recorre las calles, se detiene frente a los altares y grita la pregunta «¿Quién causa tanta alegría?». Otras versiones atribuyen el origen a los franciscanos de León desde 1854 o a devociones más antiguas de El Viejo.",
+    consequences: "La Gritería se extendió por todo el país y hoy se celebra en casi todos los hogares el 7 de diciembre. También la celebran los nicaragüenses que viven en el extranjero. Es una de las fiestas de mayor arraigo popular.",
+    datos: ["Se celebra cada 7 de diciembre, víspera del Día de la Inmaculada Concepción (8 de diciembre).", "En los altares se reparten dulces, frutas y cañas de azúcar, y es común el uso de pólvora.", "El origen exacto es debatido: tradición de 1857 en León, impulso de los franciscanos desde 1854 o devoción antigua de El Viejo.", "La Purísima es considerada la patrona de Nicaragua."],
+    protagonists: ["Franciscanos de León", "Pío IX"],
+    sources: [
+      src("Inició la Gritería (La Prensa)", "https://www.laprensani.com/2009/12/07/nacionales/9777-inicio-la-griteria"),
+      src("Historias de nuestra Purísima (La Prensa)", "https://www.laprensani.com/2014/12/06/opinion/1436647-historias-de-nuestra-purisima"),
+      src("Las Purísimas de Nicaragua (La Prensa)", "https://www.laprensani.com/2021/11/22/opinion/2913979-las-purisimas-de-nicaragua")
+    ]
+  },
+  {
+    id: 39,
+    date: "1888",
+    title: "Rubén Darío publica «Azul…» y nace el modernismo",
+    category: "cultura",
+    context: "Félix Rubén García Sarmiento, conocido como Rubén Darío, nació el 18 de enero de 1867 en Metapa (hoy Ciudad Darío) y creció en León. Entre 1886 y 1888 vivió en Valparaíso, Chile, donde trabajó como periodista.",
+    details: "En 1888 apareció en Valparaíso, con la ayuda de sus amigos Eduardo Poirier y Eduardo de la Barra, «Azul…», una mezcla de cuentos en prosa y poemas escrita durante su estadía en Chile. El libro se considera el punto de partida del modernismo hispanoamericano. Una segunda edición ampliada se publicó en Guatemala en 1890.",
+    consequences: "«Azul…» le dio fama en el continente y le permitió trabajar como corresponsal del diario La Nación de Buenos Aires. Darío renovó la métrica y la sonoridad del español, y su influencia llegó a generaciones de poetas del siglo XX. Murió en León el 6 de febrero de 1916 y fue sepultado en la catedral.",
+    datos: ["«Azul…» se publicó en Valparaíso (Chile) en 1888; la segunda edición, en Guatemala, en 1890.", "«Prosas profanas» apareció en 1896.", "Darío nació en 1867 en Metapa (hoy Ciudad Darío) y murió en León en 1916, a los 49 años.", "Su retrato aparece en los billetes de 100 córdobas y el Teatro Nacional de Managua lleva su nombre."],
+    protagonists: ["Rubén Darío", "Eduardo Poirier", "Eduardo de la Barra"],
+    sources: [
+      src("Rubén Darío (1867-1916) (UNED, Museo Virtual)", "https://www.uned.es/universidad/inicio/unidad/museo-virtual-historia-masoneria/sala-xiv-literatura-y-masoneria/ruben-dario-%281867-1916%29.html"),
+      src("Parlamento publicará dos libros sobre Rubén Darío por el centenario de su muerte (La Prensa)", "https://www.laprensani.com/2016/01/08/cultura/1965945-1965945"),
+      src("Rubén Darío (Encyclopaedia Britannica)", "https://www.britannica.com/biography/Ruben-Dario"),
+      src("A cien años de la muerte de Rubén Darío (Página/12)", "https://www.pagina12.com.ar/diario/suplementos/libros/10-5778-2016-01-31.html")
+    ]
+  },
+  {
+    id: 40,
+    date: "1888",
+    title: "El béisbol llega a Bluefields",
+    category: "vida",
+    context: "En la década de 1880, Bluefields era parte de la Reserva Mosquitia, una zona autónoma con fuerte influencia británica, donde el deporte más popular era el cricket.",
+    details: "Albert Addlesberg, un comerciante estadounidense que vivía en Bluefields, convenció a dos clubes de cricket de cambiar al béisbol y les consiguió equipo importado de Nueva Orleans. Los equipos empezaron a jugar en 1888 y, según un estudio, el 9 de mayo de 1889 se formaron los primeros equipos en Bluefields. Los nombres de esos equipos varían según la fuente.",
+    consequences: "El béisbol se extendió desde la Costa Caribe al resto del país y se convirtió en el deporte nacional. La liga profesional se interrumpió en 1967 por problemas políticos y económicos, pero el interés siguió creciendo. En 1976 Dennis Martínez fue el primer nicaragüense en las Grandes Ligas, y el estadio nacional de Managua lleva hoy su nombre.",
+    datos: ["Albert Addlesberg importó el equipo de juego desde Nueva Orleans.", "Se jugó desde 1888; los primeros equipos se formaron en Bluefields el 9 de mayo de 1889, según un estudio.", "Dennis Martínez fue el primer nicaragüense en las Grandes Ligas, en 1976.", "El Estadio Nacional de Managua recibió el nombre «Dennis Martínez» en 1998."],
+    protagonists: ["Albert Addlesberg", "Dennis Martínez"],
+    sources: [
+      src("The history of baseball in Nicaragua (MLB.com)", "https://www.mlb.com/news/featured/nicaragua-baseball-history"),
+      src("Orígenes del béisbol en Nicaragua, 1901-1924 (EFDeportes)", "https://efdeportes.com/efd208/origenes-del-beisbol-en-nicaragua-1901-1924.htm"),
+      src("Baseball in Nicaragua (Wikipedia, en inglés)", "https://en.wikipedia.org/wiki/Baseball_in_Nicaragua"),
+      src("Southern Club of Bluefields (Protoball)", "https://protoball.org/Southern_Club_of_Bluefields")
     ]
   },
   {
@@ -437,6 +519,23 @@ const eventsData = [
       src("Battle of Coyotepe (History of the Marine Corps, en inglés)", "https://bloodline.historyofthemarinecorps.com/battle/battle-of-coyotepe/"),
       src("Benjamín Zeledón (Military Wiki, en inglés)", "https://military-history.fandom.com/wiki/Benjam%C3%ADn_Zeled%C3%B3n"),
       src("The Assault on Coyotepe (RallyPoint, en inglés)", "https://www.rallypoint.com/shared-links/coyotepe")
+    ]
+  },
+  {
+    id: 41,
+    date: "1912",
+    title: "Nace el córdoba, la moneda nacional",
+    category: "economia",
+    context: "A comienzos del siglo XX Nicaragua usaba el peso moneda corriente, vigente desde 1878, y atravesaba una etapa de inestabilidad política. En 1912 el gobierno de Adolfo Díaz reformó el sistema monetario.",
+    details: "El 20 de marzo de 1912 se promulgó la Ley de Conversión Monetaria, que creó el córdoba, nombrado en honor de Francisco Hernández de Córdoba, fundador de León y Granada. Reemplazó al peso moneda corriente a razón de 12,5 pesos por un córdoba y se equiparó al peso fuerte. Lo emitía el Banco Nacional de Nicaragua, formado por banqueros nicaragüenses y estadounidenses. Por la inestabilidad de la época, no circuló hasta 1913.",
+    consequences: "El córdoba, al principio casi igual al dólar, sigue siendo la moneda nacional. La inflación y los cambios de billetes marcaron después su historia. En 1960 se creó el Banco Central de Nicaragua, que en 1962 asumió la emisión de billetes, y en 2012 celebró el centenario del córdoba.",
+    datos: ["Ley de Conversión Monetaria: 20 de marzo de 1912, bajo el gobierno de Adolfo Díaz.", "Equivalencia inicial: 12,5 pesos moneda corriente = 1 córdoba.", "Los billetes del Banco Nacional se pusieron en circulación el 23 de marzo de 1913.", "El Banco Central de Nicaragua se creó en 1960 y celebró el centenario del córdoba el 20 de marzo de 2012."],
+    protagonists: ["Adolfo Díaz", "Francisco Hernández de Córdoba"],
+    sources: [
+      src("El Banco Central celebra el centenario del córdoba (BCN)", "https://www.bcn.gob.ni/system/files_force/noticias/BCN%20celebra%20Centenario%20del%20C%C3%B3rdoba.pdf?download=1"),
+      src("Nicaraguan córdoba (Wikipedia, en inglés)", "https://en.wikipedia.org/wiki/Nicaraguan_c%C3%B3rdoba"),
+      src("Decreto de 1913 sobre la conversión con el córdoba (La Gaceta)", "https://www.leybook.com/doc/22426/pdf"),
+      src("Córdoba (moneda) (EcuRed)", "https://www.ecured.cu/C%C3%B3rdoba_(moneda)")
     ]
   },
   {
@@ -568,6 +667,23 @@ const eventsData = [
     ]
   },
   {
+    id: 42,
+    date: "1969",
+    title: "Se inaugura el Teatro Nacional Rubén Darío",
+    category: "cultura",
+    context: "A comienzos de los años sesenta Managua era la capital de un país con pocas salas para grandes espectáculos. En 1963 el arquitecto nicaragüense José Francisco Terán Callejas diseñó el teatro.",
+    details: "El Teatro Nacional, que lleva el nombre del poeta Rubén Darío, se inauguró en 1969. Fue concebido como sala de conciertos, con capacidad para unas 1,200 personas en el auditorio principal.",
+    consequences: "El 23 de diciembre de 1972 el terremoto destruyó gran parte del centro de Managua, pero el Teatro Nacional fue uno de los pocos edificios importantes que resistieron. Desde entonces es uno de los centros de la vida cultural de la capital, con conciertos, ópera, ballet y teatro.",
+    datos: ["Diseñado en 1963 por José Francisco Terán Callejas.", "Inaugurado en 1969.", "Aforo aproximado: 1,200 personas en el auditorio principal.", "Fue uno de los pocos edificios importantes del centro de Managua que sobrevivieron al terremoto de 1972.", "Aparece en los billetes de 100 córdobas."],
+    protagonists: ["José Francisco Terán Callejas", "Rubén Darío"],
+    sources: [
+      src("AD Classics: Rubén Darío National Theatre (ArchDaily)", "https://www.archdaily.com/932148/ad-classics-ruben-dario-national-theatre-jose-francisco-teran"),
+      src("Things to do in Managua (Frommer's)", "https://www.frommers.com/destinations/managua/things-to-do/"),
+      src("Teatro Nacional de Nicaragua (d&b audiotechnik)", "https://www.dbaudio.com/global/es/aplicaciones/artes-escenicas/teatros/teatro-nacional-de-nicaragua-agitado-y-revuelto-por-un-agente-no-muy-secreto/"),
+      src("Rubén Darío National Theatre (Wikipedia, en inglés)", "https://en.wikipedia.org/wiki/Ruben_Dario_National_Theater")
+    ]
+  },
+  {
     id: 27,
     date: "1972",
     title: "Terremoto de Managua",
@@ -587,6 +703,22 @@ const eventsData = [
       src("Nicaragua: The Aftermath of the 1972 Earthquake (Global Voices, en inglés)", "https://globalvoices.org/2009/12/29/nicaragua-the-aftermath-of-the-1972-earthquake/"),
       src("La noche en que Managua se vino abajo (Excélsior)", "https://www.excelsior.com.mx/internacional/terremoto-managua-1972"),
       src("El terremoto de 1972 en Managua (FLACSO)", "https://www.flacso.edu.ec/flax15/_upload/solcha2020/url_documentacion/PONENCIAMESA505814404Losdesast93111639.pdf")
+    ]
+  },
+  {
+    id: 43,
+    date: "1975",
+    title: "Se estrena la Misa campesina nicaragüense",
+    category: "cultura",
+    context: "En los años setenta, bajo la dictadura de Somoza, muchos jóvenes católicos se acercaron a la teología de la liberación. El Concilio Vaticano II había permitido incorporar música popular y regional a la liturgia.",
+    details: "El compositor Carlos Mejía Godoy escribió la Misa campesina nicaragüense, con letras inspiradas en testimonios de campesinos de la isla de Solentiname y música de varias regiones del país: sones nicas, mazurcas, sones de toro y cantos misquitos. Se estrenó en 1975; según los relatos, la Guardia Nacional interrumpió la presentación y pocos días después el arzobispo de Managua, Miguel Obando y Bravo, prohibió su uso en las iglesias. Los relatos difieren sobre el lugar exacto del estreno.",
+    consequences: "Pese a la prohibición, la misa se difundió en celebraciones clandestinas y en grabaciones que circulaban en secreto. El disco se grabó en Costa Rica en 1977 y se publicó en Nicaragua en 1980. Se considera una de las obras más representativas de la cultura popular nicaragüense y del cristianismo ligado a la lucha contra la dictadura.",
+    datos: ["Autor: Carlos Mejía Godoy (nacido en 1943).", "Se compuso en la comunidad artística de Solentiname y se estrenó en 1975.", "Según Wikipedia, fue la primera grabación del país con estilos musicales de varias regiones.", "Se grabó en Costa Rica en 1977 y se editó en Nicaragua en 1980."],
+    protagonists: ["Carlos Mejía Godoy", "Ernesto Cardenal", "Miguel Obando y Bravo"],
+    sources: [
+      src("Misa Campesina Nicaragüense (Wikipedia, en inglés)", "https://en.wikipedia.org/wiki/Misa_Campesina_Nicarag%C3%BCense"),
+      src("La Revolución nicaragüense y las comunidades eclesiales de base (Fabio Salguero)", "https://revistas.ubl.ac.cr/index.php/vyp/article/view/27/85"),
+      src("The forbidden mass (Christ Church Cathedral Indianapolis)", "https://www.cccindy.org/the-forbidden-mass/")
     ]
   },
   {

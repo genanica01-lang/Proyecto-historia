@@ -145,6 +145,18 @@ function showSetup() {
     <div class="seg" role="radiogroup" aria-labelledby="lenLabel">${lengthBtns}</div>
 
     <button type="button" class="quiz-btn big" id="quizStart">Empezar el quiz</button>
+
+    <details class="class-join" id="classJoin">
+      <summary>¿Tu profesor te dio un código de clase?</summary>
+      <div class="class-join-body">
+        <label for="classCodeInput">Código de clase</label>
+        <input id="classCodeInput" type="text" inputmode="text" autocapitalize="characters" autocomplete="off" placeholder="Ejemplo: I5-7KQ2M" maxlength="12">
+        <label for="studentName">Tu nombre</label>
+        <input id="studentName" type="text" autocomplete="name" placeholder="Nombre y apellido" maxlength="28">
+        <p class="class-error" id="classError" role="alert" hidden></p>
+        <button type="button" class="quiz-btn ghost" id="classStart">Entrar a la clase</button>
+      </div>
+    </details>
   `;
 
   $$('.level-card', quizCard).forEach((b) => b.addEventListener('click', () => {
@@ -158,6 +170,7 @@ function showSetup() {
     $$('.seg-btn', quizCard).forEach((x) => x.setAttribute('aria-checked', String(x === b)));
   }));
   $('#quizStart', quizCard).addEventListener('click', () => startQuiz());
+  $('#classStart', quizCard).addEventListener('click', startClassQuiz);
 }
 
 function savePrefs() {
@@ -298,6 +311,8 @@ function showResult() {
     q.history.unshift({ date: Date.now(), level: session.level, length: session.length, score, total, pct: percent });
     q.history = q.history.slice(0, 20);
     store.save();
+  } else if (session.mode === 'class') {
+    recordHtml = '<p class="record">Quiz de clase: no cambia tus récords personales.</p>';
   } else {
     recordHtml = '<p class="record">Este repaso mejora tu progreso, pero no cambia tus récords.</p>';
   }
@@ -330,6 +345,7 @@ function showResult() {
       </div>
     </div>
     ${recordHtml}
+    ${session.mode === 'class' ? classResultBox() : ''}
     ${reviewHtml}
     <div class="result-actions">
       ${wrong.length ? `<button type="button" class="quiz-btn" id="quizRetryWrong">Repetir las ${wrong.length} falladas</button>` : ''}
@@ -338,6 +354,7 @@ function showResult() {
     </div>
   `;
 
+  wireClassResult();
   const retryBtn = $('#quizRetryWrong', quizCard);
   if (retryBtn) retryBtn.addEventListener('click', () => startRetry(wrong.map((a) => a.item)));
   const againBtn = $('#quizAgain', quizCard);
@@ -414,6 +431,252 @@ function renderProgress() {
   });
 }
 
+
+/* ==========================================================================
+   Modo clase y modo profesor (sin servidor)
+   - El profesor genera un código (nivel + cantidad + semilla). Con ese código,
+     todos los estudiantes reciben las MISMAS preguntas.
+   - Al terminar, cada estudiante obtiene un código de resultado que le envía
+     al profesor. El profesor los pega en su panel y se calcula el promedio.
+   - Los códigos llevan una suma de control sencilla: sirve para detectar
+     errores de copia, no para evitar trampas.
+   ========================================================================== */
+const CLASS_LEVEL_CODE = { facil: 'F', intermedio: 'I', avanzado: 'A', mixto: 'M' };
+const CLASS_CODE_LEVEL = { F: 'facil', I: 'intermedio', A: 'avanzado', M: 'mixto' };
+
+function rngFrom(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function shuffleWith(array, rnd) {
+  const copy = array.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function newClassCode(level, length) {
+  const seed = Math.floor(Math.random() * 36 ** 5).toString(36).toUpperCase().padStart(5, '0');
+  return `${CLASS_LEVEL_CODE[level]}${length}-${seed}`;
+}
+function parseClassCode(text) {
+  const m = String(text || '').toUpperCase().replace(/\s+/g, '').match(/^([FIAM])(5|10)-([0-9A-Z]{5})$/);
+  if (!m) return null;
+  return { code: `${m[1]}${m[2]}-${m[3]}`, level: CLASS_CODE_LEVEL[m[1]], length: Number(m[2]), seed: parseInt(m[3], 36) };
+}
+
+// Mismas preguntas y mismo orden de opciones para quien use el mismo código
+function classQuestions(info) {
+  const rnd = rngFrom(info.seed);
+  const take = (pool, n) => shuffleWith(pool, rnd).slice(0, n);
+  let chosen;
+  if (info.level !== 'mixto') {
+    chosen = take(poolFor(info.level), info.length);
+  } else {
+    const nHard = Math.max(1, Math.round(info.length * 0.2));
+    const nMid = Math.round(info.length * 0.4);
+    const nEasy = info.length - nHard - nMid;
+    chosen = [...take(poolFor('facil'), nEasy), ...take(poolFor('intermedio'), nMid), ...take(poolFor('avanzado'), nHard)];
+  }
+  return chosen.map((item) => ({
+    ...item,
+    shuffled: shuffleWith(item.options.map((text, i) => ({ text, correct: i === item.answer })), rnd)
+  }));
+}
+
+function b64urlEncode(s) {
+  return btoa(unescape(encodeURIComponent(s))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function b64urlDecode(s) {
+  const pad = s + '='.repeat((4 - (s.length % 4)) % 4);
+  return decodeURIComponent(escape(atob(pad.replace(/-/g, '+').replace(/_/g, '/'))));
+}
+function checksum(text) {
+  let h = 5381;
+  const s = 'nic-tiempo:' + text;
+  for (let i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0;
+  return h.toString(36).toUpperCase().padStart(4, '0').slice(-4);
+}
+
+function makeResultCode(classCode, name, bits) {
+  const body = `${classCode}.${bits}.${b64urlEncode(name)}`;
+  return `R1.${body}.${checksum(body)}`;
+}
+function parseResultCode(line) {
+  const parts = String(line || '').trim().replace(/\s+/g, '').split('.');
+  if (parts.length !== 5 || parts[0] !== 'R1') return { error: 'No parece un código de resultado' };
+  const [, classCode, bits, nameB64, chk] = parts;
+  if (checksum(`${classCode}.${bits}.${nameB64}`) !== chk) return { error: 'El código está incompleto o cambió al copiarlo' };
+  if (!/^[01]{1,10}$/.test(bits) || !parseClassCode(classCode)) return { error: 'Código con datos no válidos' };
+  let name = '';
+  try { name = b64urlDecode(nameB64); } catch (e) { return { error: 'No se pudo leer el nombre' }; }
+  return { classCode: parseClassCode(classCode).code, bits, name };
+}
+
+/* ----- Estudiante ----- */
+function startClassQuiz() {
+  const err = $('#classError', quizCard);
+  const info = parseClassCode($('#classCodeInput', quizCard).value);
+  const name = $('#studentName', quizCard).value.trim().replace(/\s+/g, ' ');
+  const fail = (msg) => { err.textContent = msg; err.hidden = false; };
+  if (!info) return fail('El código no es válido. Debe verse como I5-7KQ2M.');
+  if (!name) return fail('Escribe tu nombre para que tu profesor sepa quién eres.');
+  const questions = classQuestions(info);
+  if (questions.length < info.length) return fail('Este código pide más preguntas de las que hay disponibles.');
+  begin({ mode: 'class', title: `Quiz de clase · ${info.code}`, questions, level: info.level, length: info.length, classCode: info.code, studentName: name });
+}
+
+function classResultBox() {
+  const bits = session.answers.map((a) => (a.ok ? '1' : '0')).join('');
+  session.resultCode = makeResultCode(session.classCode, session.studentName, bits);
+  return `<section class="result-code">
+    <h4>Tu código de resultado</h4>
+    <p>Envíaselo a tu profesor (por mensaje o correo). Así él calcula el promedio del grupo.</p>
+    <textarea id="resultCodeBox" readonly rows="2" aria-label="Código de resultado">${esc(session.resultCode)}</textarea>
+    <button type="button" class="quiz-btn ghost" id="copyResultCode">Copiar código</button>
+  </section>`;
+}
+
+function copyText(text, textarea) {
+  if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text).then(() => true, () => false);
+  try { textarea.select(); return Promise.resolve(document.execCommand('copy')); } catch (e) { return Promise.resolve(false); }
+}
+
+function wireClassResult() {
+  const btn = $('#copyResultCode', quizCard);
+  if (!btn) return;
+  btn.addEventListener('click', async () => {
+    const ok = await copyText(session.resultCode, $('#resultCodeBox', quizCard));
+    btn.textContent = ok ? 'Código copiado ✓' : 'Selecciona el texto y cópialo';
+    if (!ok) $('#resultCodeBox', quizCard).select();
+  });
+}
+
+/* ----- Profesor ----- */
+const teacherBody = document.getElementById('teacherBody');
+let teacherCode = '';
+
+function renderTeacher() {
+  if (!teacherBody) return;
+  const saved = (store.get().teacher || {}).code || '';
+  teacherCode = teacherCode || saved;
+  const lv = Object.keys(LEVELS);
+  teacherBody.innerHTML = `
+    <div class="teacher-step">
+      <h4>1. Crea el código de la clase</h4>
+      <div class="teacher-row">
+        <label>Nivel
+          <select id="tLevel">${lv.map((k) => `<option value="${k}">${LEVELS[k].label}</option>`).join('')}</select>
+        </label>
+        <label>Preguntas
+          <select id="tLength">${LENGTHS.map((n) => `<option value="${n}">${n}</option>`).join('')}</select>
+        </label>
+        <button type="button" class="quiz-btn" id="tGenerate">Generar código</button>
+      </div>
+      <div class="teacher-code" id="tCodeBox" ${teacherCode ? '' : 'hidden'}>
+        <span class="muted">Código de la clase</span>
+        <strong id="tCodeValue">${esc(teacherCode)}</strong>
+        <button type="button" class="quiz-btn ghost small" id="tCopy">Copiar</button>
+      </div>
+      <p class="muted">Tus estudiantes lo escriben en «¿Tu profesor te dio un código de clase?», dentro de la zona de aprendizaje. Todos reciben las mismas preguntas.</p>
+      <details class="teacher-preview" id="tPreviewBox" ${teacherCode ? '' : 'hidden'}><summary>Ver las preguntas de este código</summary><ol id="tPreview"></ol></details>
+    </div>
+
+    <div class="teacher-step">
+      <h4>2. Reúne los resultados</h4>
+      <label class="block-label" for="tResults">Pega los códigos de resultado de tus estudiantes (uno por línea)</label>
+      <textarea id="tResults" rows="5" placeholder="R1.I5-7KQ2M.10110.…"></textarea>
+      <button type="button" class="quiz-btn" id="tCalc">Calcular resultados del grupo</button>
+      <div id="tOutput" aria-live="polite"></div>
+    </div>
+    <p class="muted teacher-note">Los códigos detectan errores de copia, pero cualquiera podría escribir uno falso: úsalos para practicar en clase, no para calificaciones oficiales. Las preguntas del código dependen de esta versión del banco de preguntas.</p>
+  `;
+  const info = parseClassCode(teacherCode);
+  if (info) { $('#tLevel').value = info.level; $('#tLength').value = String(info.length); renderPreview(); }
+
+  $('#tGenerate').addEventListener('click', () => {
+    teacherCode = newClassCode($('#tLevel').value, Number($('#tLength').value));
+    store.get().teacher = { code: teacherCode }; store.save();
+    $('#tCodeValue').textContent = teacherCode;
+    $('#tCodeBox').hidden = false; $('#tPreviewBox').hidden = false;
+    renderPreview();
+  });
+  $('#tCopy').addEventListener('click', async (e) => {
+    const tmp = document.createElement('textarea'); tmp.value = teacherCode; document.body.appendChild(tmp);
+    const ok = await copyText(teacherCode, tmp); tmp.remove();
+    e.target.textContent = ok ? 'Copiado ✓' : 'Cópialo a mano';
+  });
+  $('#tCalc').addEventListener('click', calcGroup);
+}
+
+function renderPreview() {
+  const info = parseClassCode(teacherCode);
+  if (!info) return;
+  $('#tPreview').innerHTML = classQuestions(info).map((qn) => `<li>${levelBadge(qn.level)} ${esc(qn.q)}</li>`).join('');
+}
+
+function calcGroup() {
+  const out = $('#tOutput');
+  const info = parseClassCode(teacherCode);
+  if (!info) { out.innerHTML = '<p class="class-error">Primero genera un código de clase (paso 1).</p>'; return; }
+  const questions = classQuestions(info);
+  const lines = $('#tResults').value.split(/\n+/).map((l) => l.trim()).filter(Boolean);
+  if (!lines.length) { out.innerHTML = '<p class="class-error">Pega al menos un código de resultado.</p>'; return; }
+
+  const students = new Map();   // un resultado por nombre (el último)
+  const problems = [];
+  lines.forEach((line, i) => {
+    const r = parseResultCode(line);
+    if (r.error) return problems.push(`Línea ${i + 1}: ${r.error}.`);
+    if (r.classCode !== info.code) return problems.push(`Línea ${i + 1}: es de otra clase (${r.classCode}).`);
+    if (r.bits.length !== questions.length) return problems.push(`Línea ${i + 1}: no coincide el número de preguntas.`);
+    students.set(r.name.toLowerCase(), r);
+  });
+  const list = Array.from(students.values());
+  if (!list.length) { out.innerHTML = `<p class="class-error">No hay resultados válidos.</p><ul class="problem-list">${problems.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>`; return; }
+
+  const total = questions.length;
+  const rows = list.map((s) => { const score = [...s.bits].filter((b) => b === '1').length; return { name: s.name, bits: s.bits, score, pct: pct(score, total) }; })
+    .sort((a, b) => b.pct - a.pct || a.name.localeCompare(b.name, 'es'));
+  const avg = Math.round(rows.reduce((t, r) => t + r.pct, 0) / rows.length);
+  const bands = [['0–49 %', 0, 49], ['50–69 %', 50, 69], ['70–89 %', 70, 89], ['90–100 %', 90, 100]]
+    .map(([label, lo, hi]) => ({ label, n: rows.filter((r) => r.pct >= lo && r.pct <= hi).length }));
+  const perQ = questions.map((qn, i) => ({ qn, ok: rows.filter((r) => r.bits[i] === '1').length }));
+
+  out.innerHTML = `
+    <div class="stat-grid">
+      <div class="stat"><strong>${rows.length}</strong><span>estudiantes</span></div>
+      <div class="stat main"><strong>${avg} %</strong><span>promedio del grupo</span></div>
+      <div class="stat"><strong>${rows[0].pct} %</strong><span>más alto</span></div>
+      <div class="stat"><strong>${rows[rows.length - 1].pct} %</strong><span>más bajo</span></div>
+    </div>
+    <h5>Distribución de resultados</h5>
+    <div class="bands">${bands.map((b) => `<div class="band"><span class="band-label">${b.label}</span><div class="band-track"><span style="width:${pct(b.n, rows.length)}%"></span></div><span class="band-n">${b.n}</span></div>`).join('')}</div>
+    <h5>Resultados por pregunta <span class="muted">(en rojo, las que menos aciertos tuvieron)</span></h5>
+    <ol class="perq">${perQ.map(({ qn, ok }) => { const p = pct(ok, rows.length); return `<li class="${p < 50 ? 'hard' : ''}"><div class="perq-top">${levelBadge(qn.level)}<strong>${p} %</strong></div><p>${esc(qn.q)}</p><div class="band-track"><span style="width:${p}%"></span></div></li>`; }).join('')}</ol>
+    <h5>Estudiantes</h5>
+    <div class="table-wrap"><table class="records student-table"><thead><tr><th scope="col">Nombre</th><th scope="col">Aciertos</th><th scope="col">%</th></tr></thead>
+      <tbody>${rows.map((r) => `<tr><th scope="row">${esc(r.name)}</th><td>${r.score} / ${total}</td><td><strong>${r.pct} %</strong></td></tr>`).join('')}</tbody></table></div>
+    ${problems.length ? `<h5>Códigos que no se contaron</h5><ul class="problem-list">${problems.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>` : ''}
+    <button type="button" class="quiz-btn ghost" id="tCsv">Descargar tabla (CSV)</button>`;
+
+  $('#tCsv').addEventListener('click', () => {
+    const head = ['Nombre', 'Aciertos', 'Total', 'Porcentaje', ...questions.map((_, i) => 'P' + (i + 1))];
+    const csv = [head, ...rows.map((r) => [r.name, r.score, total, r.pct, ...r.bits.split('')])]
+      .map((row) => row.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\r\n');
+    const url = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' }));
+    const a = document.createElement('a'); a.href = url; a.download = `resultados-${info.code}.csv`; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+}
+
 window.renderProgress = renderProgress;
 window.startEventPractice = startEventPractice;
 
@@ -421,4 +684,5 @@ document.addEventListener('DOMContentLoaded', () => {
   loadPrefs();
   showSetup();
   renderProgress();
+  renderTeacher();
 });

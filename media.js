@@ -43,7 +43,15 @@ const EVENT_MEDIA = {
   32: { wiki: ['es:Arnoldo Alemán', 'es:Enrique Bolaños Geyer'], lat: 12.136, lng: -86.251, d: 0.3, place: 'Managua, sede del gobierno' },
   33: { wiki: ['es:Daniel Ortega', 'es:Elecciones generales de Nicaragua de 2006'], lat: 12.136, lng: -86.251, d: 0.3, place: 'Managua, sede del gobierno' },
   34: { wiki: ['es:Protestas en Nicaragua de 2018', 'es:Crisis sociopolítica en Nicaragua de 2018'], lat: 12.136, lng: -86.251, d: 0.3, place: 'Managua y otras ciudades del país' },
-  35: { wiki: ['es:Asamblea Nacional de Nicaragua', 'es:Rosario Murillo', 'es:Daniel Ortega'], lat: 12.136, lng: -86.251, d: 0.3, place: 'Managua, sede de la Asamblea Nacional' }
+  35: { wiki: ['es:Asamblea Nacional de Nicaragua', 'es:Rosario Murillo', 'es:Daniel Ortega'], lat: 12.136, lng: -86.251, d: 0.3, place: 'Managua, sede de la Asamblea Nacional' },
+  36: { wiki: ['es:Universidad Nacional Autónoma de Nicaragua, León', 'es:Catedral de León (Nicaragua)'], lat: 12.4368, lng: -86.8791, d: 0.2, place: 'UNAN-León, junto a la catedral de León' },
+  37: { wiki: ['es:Café de Nicaragua', 'es:Matagalpa', 'es:Jinotega'], lat: 13.0, lng: -85.9, d: 1.3, place: 'Zonas cafetaleras del norte (Matagalpa y Jinotega) y meseta de Carazo, en el Pacífico' },
+  38: { wiki: ['es:La Gritería', 'es:Catedral de León (Nicaragua)', 'es:El Viejo (Nicaragua)'], lat: 12.438, lng: -86.878, d: 0.3, place: 'León, donde según la tradición nació La Gritería' },
+  39: { wiki: ['es:Rubén Darío', 'es:Azul... (libro)', 'es:Valparaíso'], lat: -33.045, lng: -71.62, d: 0.4, place: 'Valparaíso (Chile), donde se publicó «Azul…»' },
+  40: { wiki: ['es:Béisbol en Nicaragua', 'es:Bluefields', 'es:Estadio Nacional Dennis Martínez'], lat: 12.014, lng: -83.763, d: 0.4, place: 'Bluefields, en la Costa Caribe' },
+  41: { wiki: ['es:Córdoba (moneda)', 'es:Banco Central de Nicaragua', 'es:Managua'], lat: 12.136, lng: -86.251, d: 0.3, place: 'Managua, sede de la autoridad monetaria' },
+  42: { wiki: ['es:Teatro Nacional Rubén Darío', 'es:Rubén Darío National Theatre'], lat: 12.1584, lng: -86.2748, d: 0.15, place: 'Teatro Nacional Rubén Darío, Managua' },
+  43: { wiki: ['es:Misa campesina nicaragüense', 'es:Carlos Mejía Godoy', 'es:Archipiélago de Solentiname'], lat: 11.2, lng: -85.3, d: 0.5, place: 'Archipiélago de Solentiname, en el lago Cocibolca' }
 };
 
 const HERO_IMAGE_CANDIDATES = ['es:León Viejo', 'es:Catedral de León (Nicaragua)', 'es:Granada (Nicaragua)'];
@@ -80,7 +88,14 @@ const PHOTO_SOURCES = {
   "Eduardo Montealegre": ["es:Eduardo Montealegre"],
   "Rosario Murillo": ["es:Rosario Murillo", "en:Rosario Murillo"],
   "Arnoldo Alemán": ["es:Arnoldo Alemán", "en:Arnoldo Alemán"],
-  "Enrique Bolaños": ["es:Enrique Bolaños Geyer", "en:Enrique Bolaños"]
+  "Enrique Bolaños": ["es:Enrique Bolaños Geyer", "en:Enrique Bolaños"],
+  "Rubén Darío": ["es:Rubén Darío", "en:Rubén Darío"],
+  "Carlos Mejía Godoy": ["es:Carlos Mejía Godoy", "en:Carlos Mejía Godoy"],
+  "Ernesto Cardenal": ["es:Ernesto Cardenal", "en:Ernesto Cardenal"],
+  "Miguel Obando y Bravo": ["es:Miguel Obando y Bravo", "en:Miguel Obando y Bravo"],
+  "Dennis Martínez": ["es:Dennis Martínez", "en:Dennis Martínez"],
+  "Francisco Hernández de Córdoba": ["es:Francisco Hernández de Córdoba (conquistador de Nicaragua)", "es:Francisco Hernández de Córdoba"],
+  "Pío IX": ["es:Pío IX", "en:Pope Pius IX"]
 };
 
 /* ---------- Utilidades de red ---------- */
